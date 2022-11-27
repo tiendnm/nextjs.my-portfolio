@@ -1,26 +1,48 @@
+@import url("/font/css/all.min.css");
+@import url("@fontsource/cabin/variable.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "CabinVariable", sans-serif;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
+html {
+  overflow-y: overlay;
+  @apply bg-gradient-to-r from-[#d4efff] to-[#d998ff];
 }
-
-* {
-  box-sizing: border-box;
+html.dark {
+  @apply bg-gradient-to-r from-[#001441] to-[#38002c];
 }
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+.instagram {
+  background: radial-gradient(
+      circle farthest-corner at 35% 90%,
+      #fec564,
+      transparent 50%
+    ),
+    radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%),
+    radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%),
+    radial-gradient(
+      ellipse farthest-corner at 20% -50%,
+      #5258cf,
+      transparent 50%
+    ),
+    radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%),
+    radial-gradient(
+      ellipse farthest-corner at 60% -20%,
+      #893dc2,
+      transparent 50%
+    ),
+    radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent),
+    linear-gradient(
+      #6559ca,
+      #bc318f 30%,
+      #e33f5f 50%,
+      #f77638 70%,
+      #fec66d 100%
+    );
+}
+.instagram:hover {
+  background: white !important;
 }

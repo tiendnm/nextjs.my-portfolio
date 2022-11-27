@@ -3,6 +3,15 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-}
+  swcMinify: true,
+  async rewrites() {
+    return [
+      {
+        source: "/home",
+        destination: "/",
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
