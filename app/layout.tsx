@@ -1,5 +1,7 @@
+"use client";
+import FirstLoading from "../components/firstloading";
+import Nav from "../components/nav";
 import "./globals.css";
-import Nav from "./Navbar";
 export default function RootLayout({
   children,
 }: {
@@ -9,11 +11,10 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body>
-        <div className="z-50">
-          <div className="2xl:max-w-7xl lg:max-w-5xl mx-auto">
-            <Nav />
-            {children}
-          </div>
+        <FirstLoading />
+        <div className="w-full max-w-full 2xl:max-w-7xl lg:max-w-5xl mx-auto z-40">
+          <Nav />
+          {children}
         </div>
       </body>
     </html>

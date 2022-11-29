@@ -6,7 +6,7 @@ RUN npm install --omit=dev
 FROM node:16-alpine3.16 AS builder
 WORKDIR /app
 COPY . .
-RUN npm install && NODE_ENV=production npm run build
+RUN npm install && npm i sharp && NODE_ENV=production npm run build
 
 FROM node:16-alpine3.16 AS production
 WORKDIR /app
