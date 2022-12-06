@@ -31,8 +31,18 @@ html {
 
 html body,
 html .bg-gradient-transform {
-  background: linear-gradient(90deg, #c6eaff, #d58eff, #05324d, #530b46);
-  background-size: 400%;
+  background: linear-gradient(
+    90deg,
+    #ffdbfe,
+    #abdfff,
+    #557ec1,
+    #4060a2,
+    #344f90,
+    #243878,
+    #000241,
+    #33004e
+  );
+  background-size: 800%;
   background-position: 0%;
   transition: background-position 500ms;
 }
