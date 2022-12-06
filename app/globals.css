@@ -12,9 +12,9 @@ html {
   overflow-y: overlay;
 }
 
-body {
+/* body {
   @apply bg-gradient-to-r from-[#c6eaff] to-[#d58eff] dark:from-[#05324d] dark:to-[#530b46];
-}
+} */
 
 ::-webkit-scrollbar {
   @apply h-2 w-2;
@@ -27,4 +27,16 @@ body {
 }
 ::-webkit-scrollbar-track {
   @apply bg-transparent;
+}
+
+html body,
+html .bg-gradient-transform {
+  background: linear-gradient(90deg, #c6eaff, #d58eff, #05324d, #530b46);
+  background-size: 400%;
+  background-position: 0%;
+  transition: background-position 500ms;
+}
+html.dark body,
+html.dark .bg-gradient-transform {
+  background-position: 100%;
 }
