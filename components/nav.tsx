@@ -1,46 +1,82 @@
 "use client";
+import {
+  mdiAccountOutline,
+  mdiCardAccountDetailsOutline,
+  mdiClose,
+  mdiFileAccountOutline,
+  mdiHomeOutline,
+  mdiMenu,
+  mdiMoonWaningCrescent,
+  mdiPostOutline,
+  mdiWhiteBalanceSunny,
+} from "@mdi/js";
+import Icon from "@mdi/react";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
-import { useState } from "react";
+import {
+  useSelectedLayoutSegment,
+  useRouter,
+  usePathname,
+} from "next/navigation";
+import { useEffect, useState } from "react";
 import { useDarkMode } from "../services/hooks/useDarkMode";
 const headerTabs = [
   {
     text: "Home",
     value: "home",
-    icon: <i className="fa-solid fa-home" />,
+    icon: <Icon path={mdiHomeOutline} size={1} />,
   },
   {
     text: "About",
     value: "about",
-    icon: <i className="fa-solid fa-user" />,
+    icon: <Icon path={mdiAccountOutline} size={1} />,
   },
   {
     text: "Resume",
     value: "resume",
-    icon: <i className="fa-solid fa-file-lines" />,
+    icon: <Icon path={mdiFileAccountOutline} size={1} />,
   },
   {
     text: "Blogs",
     value: "blogs",
-    icon: <i className="fa-brands fa-blogger" />,
+    icon: <Icon path={mdiPostOutline} size={1} />,
   },
   {
     text: "Contact",
     value: "contact",
-    icon: <i className="fa-regular fa-address-card" />,
+    icon: <Icon path={mdiCardAccountDetailsOutline} size={1} />,
   },
 ];
 export default function Nav() {
+  const router = useRouter();
   const theme = useDarkMode();
   const segment = useSelectedLayoutSegment();
+  const pathname = usePathname();
   const [isNavExpanded, setIsNavExpanded] = useState(false);
+  const handleNavigate = (href: string) => {
+    if (pathname === href) setIsNavExpanded(false);
+    else router.push(href);
+  };
+  useEffect(() => {
+    if (isNavExpanded) {
+      setIsNavExpanded(!isNavExpanded);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [segment]);
   return (
     <>
-      <header className="flex justify-between items-center fixed top-0 left-0 w-full lg:static z-40 ">
-        <div className="flex justify-between w-full px-4 lg:px-0  lg:bg-transparent lg:dark:bg-transparent bg-white/50 dark:bg-black/50">
-          <div className="flex justify-between w-full items-center space-x-4 lg:my-8 my-5 ">
+      <header className="fixed top-0 left-0 z-40 flex w-full items-center justify-between lg:static ">
+        <div
+          className={clsx([
+            "flex w-full justify-between  px-4  lg:bg-transparent lg:px-0 lg:dark:bg-transparent",
+            {
+              "bg-stone-100/50 dark:bg-black/50": !isNavExpanded,
+              "bg-white dark:bg-gray-900": isNavExpanded,
+            },
+          ])}
+        >
+          <div className="my-5 flex w-full items-center justify-between space-x-4 lg:my-8 ">
             <Link href={"/"}>
               <Image
                 width={300}
@@ -56,10 +92,10 @@ export default function Nav() {
                   theme.ToggleDarkMode();
                 }}
                 className={clsx([
-                  "w-[40px] h-[40px] ml-2",
+                  "ml-2 h-[40px] w-[40px]",
                   "rounded-full",
-                  "flex lg:hidden justify-center items-center",
-                  "bg-white text-black",
+                  "flex items-center justify-center lg:hidden",
+                  "bg-white text-gray-600",
                   "hover:bg-[#33b1ff] hover:text-white",
                   "dark:bg-gray-600 dark:text-white",
                   "dark:hover:bg-[#33b1ff] dark:hover:text-white",
@@ -67,42 +103,35 @@ export default function Nav() {
                   "cursor-pointer",
                 ])}
               >
-                <i
-                  className={clsx([
-                    {
-                      "fa-regular fa-moon": !theme.isDarkMode,
-                      "fa-solid fa-sun": theme.isDarkMode,
-                    },
-                  ])}
-                />
+                {theme.isDarkMode ? (
+                  <Icon path={mdiWhiteBalanceSunny} size={1} />
+                ) : (
+                  <Icon path={mdiMoonWaningCrescent} size={1} rotate={-25} />
+                )}
               </span>
               <span
                 className={clsx([
-                  "opacity-100 visible lg:opacity-0 lg:invisible",
-                  "w-[40px] h-[40px]",
+                  "visible opacity-100 lg:invisible lg:opacity-0",
+                  "h-[40px] w-[40px]",
                   "rounded-full",
                   "hover:bg-[#33b1ff] dark:hover:bg-[#33b1ff]",
-                  "flex justify-center items-center",
-                  "text-black dark:text-white",
-                  "cursor-pointer ml-3",
+                  "flex items-center justify-center",
+                  "text-gray-600 dark:text-white",
+                  "ml-3 cursor-pointer",
                   {
-                    "dark:bg-gray-600 bg-white": !isNavExpanded,
-                    "dark:bg-[#ff6b60] bg-[#ff6b60] ": isNavExpanded,
+                    "bg-white dark:bg-gray-600": !isNavExpanded,
+                    "bg-[#ff6b60] dark:bg-[#ff6b60] ": isNavExpanded,
                   },
                 ])}
                 onClick={() => {
                   setIsNavExpanded((prev) => !prev);
                 }}
               >
-                <i
-                  className={clsx([
-                    "fa-solid",
-                    {
-                      "fa-bars": !isNavExpanded,
-                      "fa-xmark": isNavExpanded,
-                    },
-                  ])}
-                ></i>
+                {isNavExpanded ? (
+                  <Icon path={mdiClose} size={1} />
+                ) : (
+                  <Icon path={mdiMenu} size={1} />
+                )}
               </span>
             </div>
           </div>
@@ -118,8 +147,8 @@ export default function Nav() {
           <ul
             className={clsx([
               {
-                "flex my-12 gap-5": !isNavExpanded,
-                "block lg:hidden absolute left-0 rounded-b-[20px] top-20 z-50 w-full bg-white dark:bg-[#1D1D1D] drop-shadow-lg py-4":
+                "my-12 flex gap-5": !isNavExpanded,
+                "absolute left-0 top-20 z-50 block w-full rounded-b-[20px] bg-white py-4 drop-shadow-lg dark:bg-gray-900 lg:hidden":
                   isNavExpanded,
               },
             ])}
@@ -130,8 +159,10 @@ export default function Nav() {
                 (!segment && tab.value == headerTabs[0].value);
               return (
                 <li key={index}>
-                  <Link
-                    href={`/${tab.value}`}
+                  <a
+                    onClick={() => {
+                      handleNavigate(`/${tab.value}`);
+                    }}
                     className={
                       !isNavExpanded
                         ? clsx([
@@ -141,15 +172,13 @@ export default function Nav() {
                             "from-[#33b1ff] to-[#bc4aff]",
                             "hover:bg-gradient-to-r",
                             "dark:bg-gray-600",
-                            "text-gray-lite",
-                            "font-medium",
                             "flex",
-                            "py-2.5 md:px-4 xl:px-5",
+                            "py-2 md:px-4 xl:px-5",
                             "items-center",
                             "transition-all duration-300 ease-in-out",
-                            "dark:text-white hover:text-white",
+                            "hover:text-white dark:text-white",
                             {
-                              "text-black": !isSelected,
+                              "text-gray-600": !isSelected,
                               "bg-gradient-to-r": isSelected,
                               "text-white": isSelected,
                             },
@@ -157,12 +186,12 @@ export default function Nav() {
                         : clsx([
                             "font-medium",
                             "mx-2.5",
+                            "cursor-pointer",
                             "flex",
                             "items-center",
                             "pl-4",
                             "py-2.5 md:px-4 xl:px-5",
                             "transition-all duration-300 ease-in-out",
-                            " hover:text-white",
                             "dark:hover:text-[#33b1ff]",
                             "hover:text-[#33b1ff]",
                             {
@@ -174,7 +203,7 @@ export default function Nav() {
                     }
                   >
                     <span className="mr-2">{tab.icon}</span> {tab.text}
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -183,10 +212,10 @@ export default function Nav() {
                 theme.ToggleDarkMode();
               }}
               className={clsx([
-                "w-[40px] h-[40px] ml-2",
+                "ml-2 h-[40px] w-[40px]",
                 "rounded-full",
-                "hidden lg:flex justify-center items-center",
-                "bg-white text-black",
+                "hidden items-center justify-center lg:flex",
+                "bg-white text-gray-600",
                 "hover:bg-[#33b1ff] hover:text-white",
                 "dark:bg-gray-600 dark:text-white",
                 "dark:hover:bg-[#33b1ff] dark:hover:text-white",
@@ -194,14 +223,11 @@ export default function Nav() {
                 "cursor-pointer",
               ])}
             >
-              <i
-                className={clsx([
-                  {
-                    "fa-regular fa-moon": !theme.isDarkMode,
-                    "fa-solid fa-sun": theme.isDarkMode,
-                  },
-                ])}
-              />
+              {theme.isDarkMode ? (
+                <Icon path={mdiWhiteBalanceSunny} size={1} />
+              ) : (
+                <Icon path={mdiMoonWaningCrescent} size={1} rotate={-25} />
+              )}
             </span>
           </ul>
         </nav>
