@@ -7,7 +7,7 @@ const Preloading = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1000);
   }, []);
   return (
     <div
@@ -17,9 +17,9 @@ const Preloading = () => {
         "h-full w-full",
         "flex items-center justify-center",
         "fixed top-0 left-0",
-        "transition-all duration-500",
-        loading ? "opacity-100" : "opacity-0",
-        loading ? "visible" : "invisible",
+        "!transition-all !duration-500",
+        !loading ? "opacity-0" : "opacity-100",
+        !loading ? "invisible" : "visible",
       ])}
     >
       <div className="absolute h-20 w-20">
