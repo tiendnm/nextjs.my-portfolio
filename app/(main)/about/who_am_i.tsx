@@ -5,12 +5,16 @@ const WhoAmI = () => {
         Who am i?
       </h3>
       <p className="leading-7  text-gray-600 dark:text-gray-400">
-        With over 2 years of web development experience, I am known for working
-        hard and being eager to learn new things.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+        repellendus a repellat cumque aperiam ullam facere recusandae voluptatum
+        hic aliquid beatae nam error quidem nihil molestias fugiat ipsam,
+        reprehenderit obcaecati!
       </p>
       <p className="leading-7  text-gray-600 dark:text-gray-400">
-        My goal is to become a senior full-stack engineer in the next 3 years
-        and to operate my own business.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum ut
+        veritatis aperiam culpa, eum labore alias nisi expedita vero beatae
+        porro possimus commodi ullam dignissimos perspiciatis quas at, dolor
+        nesciunt.
       </p>
     </div>
   );

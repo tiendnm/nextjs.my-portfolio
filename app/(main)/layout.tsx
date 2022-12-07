@@ -1,6 +1,6 @@
 "use client";
-import FirstLoading from "../../components/preloading";
-import Nav from "../../components/nav";
+import Preloading from "../preloading";
+import Nav from "./nav";
 export default function RootLayout({
   children,
 }: {
@@ -8,8 +8,8 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <FirstLoading />
-      <div className="w-full max-w-full 2xl:max-w-7xl lg:max-w-5xl mx-auto z-40">
+      <Preloading />
+      <div className="z-40 mx-auto w-full max-w-full lg:max-w-5xl 2xl:max-w-7xl">
         <Nav />
         {children}
       </div>

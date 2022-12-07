@@ -1,0 +1,12 @@
+.btn-download-cv {
+  background: linear-gradient(90deg, #33b1ff, #bc4aff, #bc4aff, #33b1ff);
+  background-size: 200%;
+  background-position: 0%;
+  transition: background-position 500ms;
+  @apply mt-6 rounded-[35px] px-8 py-3 text-lg text-white;
+  @apply flex cursor-pointer items-center gap-2;
+}
+
+.btn-download-cv:hover {
+  background-position: 100%;
+}

@@ -20,7 +20,8 @@ import {
   usePathname,
 } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDarkMode } from "../services/hooks/useDarkMode";
+import { useDarkMode } from "../../services/hooks/useDarkMode";
+import styles from "./main.module.css";
 const headerTabs = [
   {
     text: "Home",
@@ -69,14 +70,14 @@ export default function Nav() {
       <header className="fixed top-0 left-0 z-40 flex w-full items-center justify-between lg:static ">
         <div
           className={clsx([
-            "flex w-full justify-between  px-4  lg:bg-transparent lg:px-0 lg:dark:bg-transparent",
+            "flex w-full justify-between  px-2  lg:bg-transparent lg:px-0 lg:dark:bg-transparent",
             {
               "bg-stone-100/50 dark:bg-black/50": !isNavExpanded,
               "bg-white dark:bg-gray-900": isNavExpanded,
             },
           ])}
         >
-          <div className="my-5 flex w-full items-center justify-between space-x-4 lg:my-8 ">
+          <div className="my-2 flex w-full items-center justify-between space-x-4 lg:my-8 ">
             <Link href={"/"}>
               <Image
                 width={300}
@@ -148,7 +149,7 @@ export default function Nav() {
             className={clsx([
               {
                 "my-12 flex gap-5": !isNavExpanded,
-                "absolute left-0 top-20 z-50 block w-full rounded-b-[20px] bg-white py-4 drop-shadow-lg dark:bg-gray-900 lg:hidden":
+                "absolute left-0 top-14 z-50 block w-full rounded-b-[20px] bg-white py-4 drop-shadow-lg dark:bg-gray-900 lg:hidden":
                   isNavExpanded,
               },
             ])}
@@ -163,44 +164,15 @@ export default function Nav() {
                     onClick={() => {
                       handleNavigate(`/${tab.value}`);
                     }}
-                    className={
-                      !isNavExpanded
-                        ? clsx([
-                            "rounded-md",
-                            "cursor-pointer",
-                            "bg-white",
-                            "from-[#33b1ff] to-[#bc4aff]",
-                            "hover:bg-gradient-to-r",
-                            "dark:bg-gray-600",
-                            "flex",
-                            "py-2 md:px-4 xl:px-5",
-                            "items-center",
-                            "transition-all duration-300 ease-in-out",
-                            "hover:text-white dark:text-white",
-                            {
-                              "text-gray-600": !isSelected,
-                              "bg-gradient-to-r": isSelected,
-                              "text-white": isSelected,
-                            },
-                          ])
-                        : clsx([
-                            "font-medium",
-                            "mx-2.5",
-                            "cursor-pointer",
-                            "flex",
-                            "items-center",
-                            "pl-4",
-                            "py-2.5 md:px-4 xl:px-5",
-                            "transition-all duration-300 ease-in-out",
-                            "dark:hover:text-[#33b1ff]",
-                            "hover:text-[#33b1ff]",
-                            {
-                              "dark:text-white": !isSelected,
-                              "text-[#33b1ff]": isSelected,
-                              "dark:text-[#33b1ff]": isSelected,
-                            },
-                          ])
-                    }
+                    className={clsx([
+                      "text-gray-600 dark:text-white",
+                      "bg-white dark:bg-gray-600",
+                      styles["nav-button"],
+                      {
+                        [styles.expanded]: isNavExpanded,
+                        [styles.selected]: isSelected,
+                      },
+                    ])}
                   >
                     <span className="mr-2">{tab.icon}</span> {tab.text}
                   </a>

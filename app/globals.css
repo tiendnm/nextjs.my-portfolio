@@ -3,19 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  @apply h-full;
-  font-family: "CabinVariable", sans-serif;
-}
-html {
-  overflow-y: overlay;
-}
-
-/* body {
-  @apply bg-gradient-to-r from-[#c6eaff] to-[#d58eff] dark:from-[#05324d] dark:to-[#530b46];
-} */
-
 ::-webkit-scrollbar {
   @apply h-2 w-2;
 }
@@ -27,6 +14,15 @@ html {
 }
 ::-webkit-scrollbar-track {
   @apply bg-transparent;
+}
+
+html,
+body {
+  @apply h-full;
+  font-family: "CabinVariable", sans-serif;
+}
+html {
+  overflow-y: overlay;
 }
 
 html body {
@@ -66,14 +62,5 @@ html .bg-gradient-transform {
   transition: background-position 1000ms;
 }
 html.dark .bg-gradient-transform {
-  background-position: 100%;
-}
-.btn-gradient-transform {
-  background: linear-gradient(90deg, #33b1ff, #bc4aff, #bc4aff, #33b1ff);
-  background-size: 200%;
-  background-position: 0%;
-  transition: background-position 500ms;
-}
-.btn-gradient-transform:hover {
   background-position: 100%;
 }
