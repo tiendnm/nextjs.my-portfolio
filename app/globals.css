@@ -29,24 +29,51 @@ html {
   @apply bg-transparent;
 }
 
-html body,
+html body {
+  background: linear-gradient(
+    90deg,
+    #ffdbfe,
+    #abdfff,
+    #243b55,
+    #141e30,
+    #000241,
+    #33004e
+  );
+  background-size: 600%;
+  background-position: 0%;
+  transition: background-position 1000ms;
+}
+
+html.dark body {
+  background-position: 100%;
+}
+
+html.light .bg-gradient-transform {
+  background-position: 0%;
+}
 html .bg-gradient-transform {
   background: linear-gradient(
     90deg,
     #ffdbfe,
     #abdfff,
-    #557ec1,
-    #4060a2,
-    #344f90,
-    #243878,
+    #243b55,
+    #141e30,
     #000241,
     #33004e
   );
-  background-size: 800%;
+  background-size: 600%;
+  background-position: 50%;
+  transition: background-position 1000ms;
+}
+html.dark .bg-gradient-transform {
+  background-position: 100%;
+}
+.btn-gradient-transform {
+  background: linear-gradient(90deg, #33b1ff, #bc4aff, #bc4aff, #33b1ff);
+  background-size: 200%;
   background-position: 0%;
   transition: background-position 500ms;
 }
-html.dark body,
-html.dark .bg-gradient-transform {
+.btn-gradient-transform:hover {
   background-position: 100%;
 }

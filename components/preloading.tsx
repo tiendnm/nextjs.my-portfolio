@@ -17,8 +17,6 @@ const Preloading = () => {
         "h-full w-full",
         "flex items-center justify-center",
         "fixed top-0 left-0",
-        "!transition-all !duration-500",
-        !loading ? "opacity-0" : "opacity-100",
         !loading ? "invisible" : "visible",
       ])}
     >
@@ -30,6 +28,10 @@ const Preloading = () => {
           quality={60}
           alt="Logo"
           sizes="5rem"
+          className={clsx([
+            "transition-all",
+            !loading ? "opacity-0" : "opacity-100",
+          ])}
         />
       </div>
     </div>

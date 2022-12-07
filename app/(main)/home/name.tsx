@@ -13,7 +13,7 @@ const Name = () => {
         Đỗ Ngọc Minh Tiến
       </div>
       <div className={clsx(["text-gray-600 dark:text-gray-300", "mb-4"])}>
-        Full-stack Engineer
+        Software Engineer
       </div>
     </>
   );

@@ -15,7 +15,9 @@ export function useDarkMode() {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
     } else {
+      document.documentElement.classList.add("light");
       document.documentElement.classList.remove("dark");
     }
     window.localStorage.setItem("darkMode", isDarkMode + "");
