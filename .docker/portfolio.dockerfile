@@ -1,20 +1,34 @@
-FROM node:16-alpine3.16 AS dependencies
-WORKDIR /app
-COPY package.json  ./
-RUN npm install --omit=dev
+# Build BASE
+FROM node:16-alpine3.16 as BASE
+LABEL author="miti"
 
-FROM node:16-alpine3.16 AS builder
 WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install --omit=dev \
+    && npm cache clean --force
+
+# Build Image
+FROM node:16-alpine3.16 AS BUILD
+LABEL author="miti"
+
+WORKDIR /app
+COPY --from=BASE /app/node_modules ./node_modules
 COPY . .
-RUN npm install && npm run build
+RUN npm run build \
+    && cd .next/standalone 
 
-FROM node:16-alpine3.16 AS production
+# Build production
+FROM node:16-alpine3.16 AS PRODUCTION
+LABEL author="miti"
+
 WORKDIR /app
-COPY --chown=node --from=builder /app/next.config.js ./
-COPY --chown=node --from=builder /app/public ./public
-COPY --chown=node --from=builder /app/.next ./.next
-COPY --chown=node --from=builder /app/package.json ./
-COPY --chown=node --from=dependencies /app/node_modules ./node_modules
-USER node
+
+COPY --from=BUILD /app/.next/standalone ./
+COPY --from=BUILD /app/public ./public
+COPY --from=BUILD /app/.next/static ./.next/static
+COPY --from=BUILD /app/.next/server ./.next/server
+
 EXPOSE 3000
-CMD [ "npm","run", "start" ]
+
+CMD npm i sharp; node server.js
+#docker build -t kmk-home-website -f .docker/basic.dockerfile .

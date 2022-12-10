@@ -9,8 +9,10 @@ const Avatar = () => {
       placeholder="blur"
       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
       alt="avatar"
-      className="rounded-full w-56 h-56 2xl:w-60 2xl:h-60"
-    ></Image>
+      className="h-56 w-56 rounded-full 2xl:h-60 2xl:w-60"
+      data-aos="fade-left"
+      data-aos-duration="100"
+    />
   );
 };
 export default Avatar;

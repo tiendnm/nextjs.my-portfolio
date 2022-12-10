@@ -26,27 +26,52 @@ const headerTabs = [
   {
     text: "Home",
     value: "home",
-    icon: <Icon path={mdiHomeOutline} size={1} />,
+    icon: (
+      <Icon
+        path={mdiHomeOutline}
+        size={1}
+      />
+    ),
   },
   {
     text: "About",
     value: "about",
-    icon: <Icon path={mdiAccountOutline} size={1} />,
+    icon: (
+      <Icon
+        path={mdiAccountOutline}
+        size={1}
+      />
+    ),
   },
   {
     text: "Resume",
     value: "resume",
-    icon: <Icon path={mdiFileAccountOutline} size={1} />,
+    icon: (
+      <Icon
+        path={mdiFileAccountOutline}
+        size={1}
+      />
+    ),
   },
   {
     text: "Blogs",
     value: "blogs",
-    icon: <Icon path={mdiPostOutline} size={1} />,
+    icon: (
+      <Icon
+        path={mdiPostOutline}
+        size={1}
+      />
+    ),
   },
   {
     text: "Contact",
     value: "contact",
-    icon: <Icon path={mdiCardAccountDetailsOutline} size={1} />,
+    icon: (
+      <Icon
+        path={mdiCardAccountDetailsOutline}
+        size={1}
+      />
+    ),
   },
 ];
 export default function Nav() {
@@ -67,7 +92,7 @@ export default function Nav() {
   }, [segment]);
   return (
     <>
-      <header className="fixed top-0 left-0 z-40 flex w-full items-center justify-between lg:static ">
+      <header className="fixed top-0 left-0 z-40 flex w-full items-center justify-between  lg:static ">
         <div
           className={clsx([
             "flex w-full justify-between  px-2  lg:bg-transparent lg:px-0 lg:dark:bg-transparent",
@@ -75,8 +100,7 @@ export default function Nav() {
               "bg-stone-100/50 dark:bg-black/50": !isNavExpanded,
               "bg-white dark:bg-gray-900": isNavExpanded,
             },
-          ])}
-        >
+          ])}>
           <div className="my-2 flex w-full items-center justify-between space-x-4 lg:my-8 ">
             <Link href={"/"}>
               <Image
@@ -102,12 +126,18 @@ export default function Nav() {
                   "dark:hover:bg-[#33b1ff] dark:hover:text-white",
                   "transition-all duration-300 ease-in-out",
                   "cursor-pointer",
-                ])}
-              >
+                ])}>
                 {theme.isDarkMode ? (
-                  <Icon path={mdiWhiteBalanceSunny} size={1} />
+                  <Icon
+                    path={mdiWhiteBalanceSunny}
+                    size={1}
+                  />
                 ) : (
-                  <Icon path={mdiMoonWaningCrescent} size={1} rotate={-25} />
+                  <Icon
+                    path={mdiMoonWaningCrescent}
+                    size={1}
+                    rotate={-25}
+                  />
                 )}
               </span>
               <span
@@ -126,12 +156,17 @@ export default function Nav() {
                 ])}
                 onClick={() => {
                   setIsNavExpanded((prev) => !prev);
-                }}
-              >
+                }}>
                 {isNavExpanded ? (
-                  <Icon path={mdiClose} size={1} />
+                  <Icon
+                    path={mdiClose}
+                    size={1}
+                  />
                 ) : (
-                  <Icon path={mdiMenu} size={1} />
+                  <Icon
+                    path={mdiMenu}
+                    size={1}
+                  />
                 )}
               </span>
             </div>
@@ -143,8 +178,7 @@ export default function Nav() {
               "hidden lg:block": !isNavExpanded,
               "block dark:bg-black ": isNavExpanded,
             },
-          ])}
-        >
+          ])}>
           <ul
             className={clsx([
               {
@@ -152,8 +186,7 @@ export default function Nav() {
                 "absolute left-0 top-14 z-50 block w-full rounded-b-[20px] bg-white py-4 drop-shadow-lg dark:bg-gray-900 lg:hidden":
                   isNavExpanded,
               },
-            ])}
-          >
+            ])}>
             {headerTabs.map((tab, index) => {
               const isSelected =
                 segment === tab.value ||
@@ -172,9 +205,9 @@ export default function Nav() {
                         [styles.expanded]: isNavExpanded,
                         [styles.selected]: isSelected,
                       },
-                    ])}
-                  >
-                    <span className="mr-2">{tab.icon}</span> {tab.text}
+                    ])}>
+                    <span className="mr-2">{tab.icon}</span>{" "}
+                    {tab.text}
                   </a>
                 </li>
               );
@@ -193,12 +226,18 @@ export default function Nav() {
                 "dark:hover:bg-[#33b1ff] dark:hover:text-white",
                 "transition-all duration-300 ease-in-out",
                 "cursor-pointer",
-              ])}
-            >
+              ])}>
               {theme.isDarkMode ? (
-                <Icon path={mdiWhiteBalanceSunny} size={1} />
+                <Icon
+                  path={mdiWhiteBalanceSunny}
+                  size={1}
+                />
               ) : (
-                <Icon path={mdiMoonWaningCrescent} size={1} rotate={-25} />
+                <Icon
+                  path={mdiMoonWaningCrescent}
+                  size={1}
+                  rotate={-25}
+                />
               )}
             </span>
           </ul>

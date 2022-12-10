@@ -1,6 +1,7 @@
 "use client";
 import Preloading from "../preloading";
 import Nav from "./nav";
+
 export default function RootLayout({
   children,
 }: {

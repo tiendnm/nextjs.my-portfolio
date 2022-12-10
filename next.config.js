@@ -4,6 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   swcMinify: true,
+  output: "standalone",
 };
 
 module.exports = nextConfig;

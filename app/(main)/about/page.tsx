@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import Image from "next/image";
 import PageTitle from "./page_title";
 import PersonalInfo from "./personal_info";
@@ -12,7 +11,10 @@ const About = () => {
         <div className="py-12">
           <PageTitle text={"About me"} />
           <div className="grid grid-cols-12 items-center pt-4 md:gap-10 md:pt-[40px]">
-            <div className="col-span-12 md:col-span-4">
+            <div
+              className="col-span-12 md:col-span-4"
+              data-aos="fade-right"
+              data-aos-duration="200">
               <Image
                 width={1}
                 height={1}

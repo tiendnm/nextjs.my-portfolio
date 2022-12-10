@@ -2,6 +2,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import AOS from "aos";
 const Preloading = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -9,6 +10,11 @@ const Preloading = () => {
       setLoading(false);
     }, 1000);
   }, []);
+  useEffect(() => {
+    AOS.init({
+      delay: 200,
+    });
+  });
   return (
     <div
       className={clsx([
@@ -18,8 +24,7 @@ const Preloading = () => {
         "flex items-center justify-center",
         "fixed top-0 left-0",
         !loading ? "invisible" : "visible",
-      ])}
-    >
+      ])}>
       <div className="absolute h-20 w-20">
         <Image
           priority

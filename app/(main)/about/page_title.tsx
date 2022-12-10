@@ -11,7 +11,8 @@ const PageTitle = ({ text }: PageTitleProps) => {
         `after:contents-[""] after:absolute after:top-1/2 after:left-56 after:h-0.5 after:w-36 after:bg-black`,
         `after:bg-gradient-to-r after:from-[#33b1ff] after:to-[#bc4aff]`,
       ])}
-    >
+      data-aos="fade-right"
+      data-aos-duration="100">
       {text}
     </h2>
   );
