@@ -1,7 +1,7 @@
 version: '3'
 services:
   my-portfolio:
-    image: tien-dnm/portfolio:latest
+    image: tiendnm/portfolio:latest
     container_name: my-portfolio
     restart: always
     ports:
