@@ -1,8 +1,8 @@
 version: '3'
 services:
-  my-portfolio:
-    image: tien-dnm-portfolio:latest
-    container_name: my-portfolio
+  tiendnm-portfolio:
+    image: tiendnm/portfolio:latest
+    container_name: tiendnm-portfolio
     restart: always
     ports:
       - "127.0.0.1:3002:3000"
