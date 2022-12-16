@@ -5,12 +5,13 @@ const DownLoadCVButton = () => {
   return (
     <div
       data-aos="fade-left"
-      data-aos-duration="500"
-      className={styles["btn-download-cv"]}>
-      <Icon
-        path={mdiTrayArrowDown}
-        size={1}></Icon>
-      Download CV
+      data-aos-duration="500">
+      <div className={styles["btn-download-cv"]}>
+        <Icon
+          path={mdiTrayArrowDown}
+          size={1}></Icon>
+        Download CV
+      </div>
     </div>
   );
 };
