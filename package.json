@@ -1,5 +1,5 @@
 {
-  "name": "my-portfolio-next-13",
+  "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fontsource/cabin": "^4.5.9",
+    "@next/font": "^13.0.7",
     "aos": "^2.3.4",
     "next": "^13.0.6",
     "react": "^18.2.0",
@@ -28,8 +28,8 @@
     "clsx": "^1.2.1",
     "eslint": "8.28.0",
     "eslint-config-next": "^13.0.6",
-    "postcss": "^8.4.19",
     "next-auth": "^4.18.0",
+    "postcss": "^8.4.19",
     "prettier": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.2.0",
     "sharp": "^0.31.2",

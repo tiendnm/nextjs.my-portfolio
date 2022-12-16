@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
   ],
   theme: {
     colorScheme: "light",
-    logo: "/tien-no-bg.png",
+    logo: "/tien-logo-long.png",
   },
   pages: {
     signIn: "/signin",

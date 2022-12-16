@@ -31,4 +31,4 @@ COPY --from=BUILD /app/.next/server ./.next/server
 EXPOSE 3000
 
 CMD npm i sharp; node server.js
-#docker build -t kmk-home-website -f .docker/basic.dockerfile .
+#docker build -t tiendnm/portfolio -f Dockerfile .

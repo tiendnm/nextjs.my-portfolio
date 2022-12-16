@@ -1,4 +1,3 @@
-@import url("@fontsource/cabin/variable.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,7 +18,6 @@
 html,
 body {
   @apply h-full;
-  font-family: "CabinVariable", sans-serif;
 }
 html {
   overflow-y: overlay;

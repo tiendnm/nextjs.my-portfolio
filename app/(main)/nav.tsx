@@ -106,7 +106,7 @@ export default function Nav() {
               <Image
                 width={300}
                 height={300}
-                src={"/tien-no-bg.png"}
+                src={"/tien-logo-long.png"}
                 alt="logo"
                 className="w-20"
               />
