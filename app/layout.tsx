@@ -1,15 +1,7 @@
 import "./globals.css";
 import "aos/dist/aos.css";
-import { Cabin } from "@next/font/google";
+import { cabin } from "../src/configs/fonts";
 
-const cabin = Cabin({
-  subsets: ["vietnamese"],
-  variable: "--cabin-font",
-  fallback: ["sans-serif"],
-  weight: ["400", "500", "600", "700"],
-  display: "auto",
-  style: ["italic", "normal"],
-});
 export default function RootLayout({
   children,
 }: {
