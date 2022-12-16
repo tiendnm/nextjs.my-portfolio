@@ -12,9 +12,9 @@ FROM node:16-alpine3.16 AS BUILD
 LABEL author="miti"
 
 WORKDIR /app
-COPY --from=BASE /app/node_modules ./node_modules
 COPY . .
-RUN npm run build \
+RUN npm install \
+    && npm run build \
     && cd .next/standalone 
 
 # Build production
@@ -30,5 +30,5 @@ COPY --from=BUILD /app/.next/server ./.next/server
 
 EXPOSE 3000
 
-CMD npm i sharp; node server.js
+CMD node server.js
 #docker build -t tiendnm/portfolio -f Dockerfile .
