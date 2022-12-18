@@ -1,4 +1,4 @@
-This is the source code of [My Porfolio](http://wwww.tien-dnm.com/) which is a [Next.js](https://nextjs.org/) project styling with [Tailwind css](https://tailwindcss.com/)
+This is the source code of [My Porfolio](http://www.tien-dnm.com/) which is a [Next.js](https://nextjs.org/) project styling with [Tailwind css](https://tailwindcss.com/)
 
 ## Getting Started
 
