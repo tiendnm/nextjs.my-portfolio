@@ -1,16 +1,13 @@
-// import db from "../../../lib/db";
 "use client";
+import { useSession } from "services/auth";
 
-import { useSession } from "next-auth/react";
 const Admin = () => {
-  const { data } = useSession();
-  console.log(data);
-  return (
-    <div>
-      <p>{data?.user?.name}</p>
-      <p>{data?.user?.email}</p>
-    </div>
-  );
+  const { data, status } = useSession({
+    required: true,
+  });
+  if (status === "loading") {
+    return <div className="text-red-500">Loading....</div>;
+  }
+  return <>{status}</>;
 };
-
 export default Admin;

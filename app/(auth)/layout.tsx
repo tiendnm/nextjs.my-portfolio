@@ -1,6 +1,6 @@
 import { SessionProvider } from "services/auth";
 
-export default function AccountLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
