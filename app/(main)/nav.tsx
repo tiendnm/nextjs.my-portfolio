@@ -20,7 +20,7 @@ import {
   usePathname,
 } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDarkMode } from "../../services/hooks/useDarkMode";
+import { useDarkMode } from "hooks/useDarkMode";
 import styles from "./main.module.css";
 const headerTabs = [
   {
@@ -106,7 +106,7 @@ export default function Nav() {
               <Image
                 width={300}
                 height={300}
-                src={"/tien-no-bg.png"}
+                src={"/tien-logo-long.png"}
                 alt="logo"
                 className="w-20"
               />
@@ -206,8 +206,7 @@ export default function Nav() {
                         [styles.selected]: isSelected,
                       },
                     ])}>
-                    <span className="mr-2">{tab.icon}</span>{" "}
-                    {tab.text}
+                    <span className="mr-2">{tab.icon}</span> {tab.text}
                   </a>
                 </li>
               );
