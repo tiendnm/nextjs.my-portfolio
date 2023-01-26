@@ -1,6 +1,6 @@
 import "./globals.css";
 import "aos/dist/aos.css";
-import { cabin } from "../src/configs/fonts";
+import { cabin } from "@configs/fonts";
 
 export default function RootLayout({
   children,

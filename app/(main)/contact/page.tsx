@@ -1,4 +1,4 @@
-import useApiAxios from "hooks/useApiAxios";
+import useApiAxios from "@hooks/useApiAxios";
 
 const Contact = async () => {
   const api = useApiAxios();

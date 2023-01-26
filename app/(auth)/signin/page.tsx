@@ -1,8 +1,8 @@
 "use client";
-import Input from "components/Input";
+import Input from "@components/Input";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
-import { useSession } from "services/auth";
+import { useSession } from "@services/auth";
 import { useRouter } from "next/navigation";
 
 const loginFields = [

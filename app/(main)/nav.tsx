@@ -20,7 +20,7 @@ import {
   usePathname,
 } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDarkMode } from "hooks/useDarkMode";
+import { useDarkMode } from "@hooks/useDarkMode";
 import styles from "./main.module.css";
 const headerTabs = [
   {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCookies, setCookies } from "cookies-next";
-import { api_base_url } from "utils/url";
+import { api_base_url } from "@utils/url";
 //==========================================================
 const useApiAxios = () => {
   //==========================================================

@@ -1,7 +1,6 @@
 "use client";
 import axios from "axios";
 import { getCookies, setCookie, deleteCookie } from "cookies-next";
-import { TmpCookiesObj } from "cookies-next/lib/types";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, {
   createContext,
@@ -11,8 +10,8 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { isValidCookies } from "utils/datatype";
-import { api_base_url } from "utils/url";
+import { isValidCookies } from "@utils/datatype";
+import { api_base_url } from "@utils/url";
 import {
   IAuth,
   IAccessTokenResponse,
