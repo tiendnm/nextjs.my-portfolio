@@ -3,8 +3,8 @@ import Image from "next/image";
 const Avatar = () => {
   return (
     <Image
-      width={200}
-      height={200}
+      width={500}
+      height={500}
       src={"/avatar-home.png"}
       placeholder="blur"
       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
