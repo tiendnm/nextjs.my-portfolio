@@ -1,5 +1,5 @@
 "use client";
-import { useSession } from "services/auth";
+import { useSession } from "@services/auth";
 
 const Admin = () => {
   const { data, status } = useSession({
