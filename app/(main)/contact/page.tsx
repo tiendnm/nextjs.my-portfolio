@@ -1,7 +1,7 @@
-import useApiAxios from "@hooks/useApiAxios";
+import Three from "./three";
 
 const Contact = async () => {
-  return <div></div>;
+  return <Three></Three>;
 };
 
 export default Contact;

@@ -6,9 +6,9 @@ import WhoAmI from "./who_am_i";
 
 const About = () => {
   return (
-    <div className="lg:pb-16">
+    <div className=" lg:pb-16">
       <div
-        className="bg-white/70 px-4 backdrop-blur-3xl transition-colors duration-500 dark:bg-[#111111]/70 sm:px-5 md:px-10 lg:rounded-2xl lg:px-20"
+        className="bg-white/70 px-4 pb-5 backdrop-blur-3xl transition-colors duration-500 dark:bg-[#111111]/70 sm:px-5 md:px-10 lg:rounded-2xl lg:px-20 lg:pb-0"
         data-aos="fade-right"
         data-aos-duration="200">
         <div className="py-12">
