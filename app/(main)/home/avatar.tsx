@@ -5,7 +5,7 @@ const Avatar = () => {
     <Image
       width={200}
       height={200}
-      src={"/avatar-1.jpeg"}
+      src={"/avatar-home.png"}
       placeholder="blur"
       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
       alt="avatar"

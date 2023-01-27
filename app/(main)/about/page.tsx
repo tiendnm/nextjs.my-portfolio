@@ -6,11 +6,11 @@ import WhoAmI from "./who_am_i";
 
 const About = () => {
   return (
-    <div
-      className="lg:pb-16"
-      data-aos="fade-right"
-      data-aos-duration="200">
-      <div className="bg-white px-4 transition-colors duration-500 dark:bg-[#111111] sm:px-5 md:px-10 lg:rounded-2xl lg:px-20">
+    <div className="lg:pb-16">
+      <div
+        className="bg-white px-4 transition-colors duration-500 dark:bg-[#111111] sm:px-5 md:px-10 lg:rounded-2xl lg:px-20"
+        data-aos="fade-right"
+        data-aos-duration="200">
         <div className="py-12">
           <PageTitle text={"About me"} />
           <div className="grid grid-cols-12 items-center pt-4 md:gap-10 md:pt-[40px]">

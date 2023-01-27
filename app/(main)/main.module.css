@@ -29,3 +29,13 @@
   background: transparent;
   @apply text-[#33b1ff];
 }
+
+.footer {
+  width: inherit;
+  max-width: inherit;
+  @apply fixed bottom-0 z-40 bg-white/20 backdrop-blur-sm lg:hidden;
+}
+
+.footer-nav {
+  @apply my-4 flex justify-around gap-5;
+}
