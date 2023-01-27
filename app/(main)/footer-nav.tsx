@@ -70,14 +70,25 @@ export default function FooterNav() {
 
   return (
     <>
-      <footer className={clsx([styles.footer])}>
+      <footer
+        className={clsx([
+          styles.footer,
+          "bg-white/40 dark:bg-black/40 dark:text-white",
+          "transition-colors duration-500",
+          "py-2",
+        ])}>
         <nav className={styles["footer-nav"]}>
           {headerTabs.map((tab, index) => {
             const isSelected =
               segment === tab.value || (!segment && tab.value == headerTabs[0].value);
             return (
               <Link
-                className="flex flex-nowrap items-center gap-2"
+                className={clsx([
+                  "flex flex-nowrap items-center gap-2 rounded-3xl bg-[100%] p-2",
+                  {
+                    [styles.selected]: isSelected,
+                  },
+                ])}
                 key={index}
                 href={tab.value}>
                 {tab.icon} {isSelected && tab.text}

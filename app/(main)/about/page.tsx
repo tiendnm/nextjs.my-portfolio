@@ -8,7 +8,7 @@ const About = () => {
   return (
     <div className="lg:pb-16">
       <div
-        className="bg-white px-4 transition-colors duration-500 dark:bg-[#111111] sm:px-5 md:px-10 lg:rounded-2xl lg:px-20"
+        className="bg-white/70 px-4 backdrop-blur-3xl transition-colors duration-500 dark:bg-[#111111]/70 sm:px-5 md:px-10 lg:rounded-2xl lg:px-20"
         data-aos="fade-right"
         data-aos-duration="200">
         <div className="py-12">

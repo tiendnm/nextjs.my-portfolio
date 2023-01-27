@@ -33,9 +33,16 @@
 .footer {
   width: inherit;
   max-width: inherit;
-  @apply fixed bottom-0 z-40 bg-white/20 backdrop-blur-sm lg:hidden;
+  @apply fixed bottom-0 z-40  backdrop-blur-sm lg:hidden;
 }
 
 .footer-nav {
-  @apply my-4 flex justify-around gap-5;
+  @apply flex justify-around gap-5;
+}
+.footer-nav .selected {
+  background: linear-gradient(90deg, #33b1ff, #bc4aff, #bc4aff, #33b1ff);
+  background-size: 200%;
+  background-position: 0%;
+  transition: background-position 500ms;
+  @apply text-white;
 }
