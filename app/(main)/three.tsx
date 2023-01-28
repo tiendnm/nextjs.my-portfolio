@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+import { DragControls } from "three/examples/jsm/controls/DragControls";
 export default function Three() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -12,10 +12,10 @@ export default function Three() {
     const scene = new THREE.Scene();
     const geo = new THREE.SphereGeometry(3, 64, 64);
     const material = new THREE.MeshPhysicalMaterial({
-      color: "orange",
+      color: "green",
     });
     const material2 = new THREE.MeshPhysicalMaterial({
-      color: "pink",
+      color: "red",
     });
     const material3 = new THREE.MeshPhysicalMaterial({
       color: "purple",
@@ -56,24 +56,40 @@ export default function Three() {
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
       renderer.setSize(canvasWidth, canvasHeight);
       renderer.render(scene, camera);
+      const render = () => {
+        renderer.render(scene, camera);
+      };
+
       const controls = new OrbitControls(camera, canvas);
       controls.enableRotate = false;
       controls.autoRotate = true;
       controls.rotateSpeed = 100;
-      // controls.maxPolarAngle = (0.9 * Math.PI) / 2;
       controls.enableZoom = false;
       controls.enableDamping = true;
       controls.enablePan = false;
+
+      const dragStart = (event: THREE.Event) => {
+        event.object.material.emissive.set(0xaaaaaa);
+      };
+      const dragEnd = (event: THREE.Event) => {
+        event.object.material.emissive.set(0x000000);
+      };
+      const controls2 = new DragControls([mesh, mesh2, mesh3], camera, canvas);
+      controls2.addEventListener("dragstart", dragStart);
+      controls2.addEventListener("dragend", dragEnd);
+
       const animate = () => {
         req = requestAnimationFrame(animate);
         controls.update();
-
-        renderer.render(scene, camera);
+        // controls2.activate();
+        render();
       };
       animate();
       return () => {
         cancelAnimationFrame(req);
         renderer.dispose();
+        controls2.removeEventListener("dragstart", dragStart);
+        controls2.removeEventListener("dragend", dragEnd);
       };
     }
   }, []);

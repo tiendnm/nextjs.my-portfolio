@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <>
       <Preloading />
       <Three />
-      <div className="z-40 mx-auto flex w-full max-w-full flex-col flex-nowrap content-center items-center justify-start lg:max-w-5xl 2xl:max-w-7xl">
+      <div className="z-40 mx-auto flex h-full w-full max-w-full flex-col flex-nowrap content-center items-stretch justify-start lg:max-w-5xl 2xl:max-w-7xl">
         <HeaderNav />
         {children}
         <FooterNav />
