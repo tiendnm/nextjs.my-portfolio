@@ -1,7 +1,5 @@
-import Three from "./three";
-
-const Contact = async () => {
-  return <Three></Three>;
+const Contact = () => {
+  return <div></div>;
 };
 
 export default Contact;
