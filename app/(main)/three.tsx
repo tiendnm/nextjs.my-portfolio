@@ -76,7 +76,7 @@ export default function Three() {
         renderer.dispose();
       };
     }
-  });
+  }, []);
   return (
     <>
       <canvas
