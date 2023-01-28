@@ -12,30 +12,37 @@ export default function Three() {
     const scene = new THREE.Scene();
     const geo = new THREE.SphereGeometry(3, 64, 64);
     const material = new THREE.MeshPhysicalMaterial({
-      color: "green",
+      color: "#772aa1",
     });
     const material2 = new THREE.MeshPhysicalMaterial({
-      color: "red",
+      color: "#2b30c2",
     });
     const material3 = new THREE.MeshPhysicalMaterial({
-      color: "purple",
+      color: "#7accff",
+    });
+    const material4 = new THREE.MeshPhysicalMaterial({
+      color: "#ffa8fd",
     });
     const mesh = new THREE.Mesh(geo, material);
-    mesh.position.set(11, 11, 11);
+    mesh.position.set(15, -8, -10);
     scene.add(mesh);
 
     const mesh2 = new THREE.Mesh(geo, material2);
-    mesh2.position.set(0, -6, -6);
+    mesh2.position.set(-12, -2.5, -5);
     scene.add(mesh2);
 
     const mesh3 = new THREE.Mesh(geo, material3);
-    mesh3.position.set(-10, 9, -7);
+    mesh3.position.set(9, 2.5, 0);
     scene.add(mesh3);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff);
-    dirLight.position.set(3, 10, 10);
+    const mesh4 = new THREE.Mesh(geo, material4);
+    mesh4.position.set(-10, 8, 10);
+    scene.add(mesh4);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    dirLight.position.set(0, 10, -10);
     dirLight.castShadow = true;
-    dirLight.shadow.camera.top = 2;
+    dirLight.shadow.camera.top = 3;
     dirLight.shadow.camera.bottom = -2;
     dirLight.shadow.camera.left = -2;
     dirLight.shadow.camera.right = 2;
@@ -43,12 +50,12 @@ export default function Three() {
     dirLight.shadow.camera.far = 40;
     scene.add(dirLight);
 
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
-    hemiLight.position.set(0, 20, 0);
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x919090);
+    hemiLight.position.set(0, 0, 0);
     scene.add(hemiLight);
 
     const camera = new THREE.PerspectiveCamera(2, canvasWidth / canvasHeight, 1, 10000);
-    camera.position.set(700, 200, -500);
+    camera.position.set(500, 100, -700);
     scene.add(camera);
 
     const canvas = canvasRef.current;
@@ -63,9 +70,8 @@ export default function Three() {
       const controls = new OrbitControls(camera, canvas);
       controls.enableRotate = false;
       controls.autoRotate = true;
-      controls.rotateSpeed = 100;
       controls.enableZoom = false;
-      controls.enableDamping = true;
+      controls.autoRotateSpeed = 2;
       controls.enablePan = false;
 
       const dragStart = (event: THREE.Event) => {
@@ -74,14 +80,13 @@ export default function Three() {
       const dragEnd = (event: THREE.Event) => {
         event.object.material.emissive.set(0x000000);
       };
-      const controls2 = new DragControls([mesh, mesh2, mesh3], camera, canvas);
+      const controls2 = new DragControls([mesh, mesh2, mesh3, mesh4], camera, canvas);
       controls2.addEventListener("dragstart", dragStart);
       controls2.addEventListener("dragend", dragEnd);
 
       const animate = () => {
         req = requestAnimationFrame(animate);
         controls.update();
-        // controls2.activate();
         render();
       };
       animate();
