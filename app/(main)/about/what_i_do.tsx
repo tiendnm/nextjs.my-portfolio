@@ -21,7 +21,7 @@ const WhatIDo = () => {
         <div
           data-aos="fade-right"
           data-aos-duration="400"
-          className="flex gap-4 rounded-3xl bg-blue-200/50 p-7 backdrop-blur-xl dark:border dark:border-gray-500 dark:bg-blue-100/10">
+          className="flex gap-4 rounded-3xl bg-blue-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-blue-100/5">
           <div>
             <Icon
               path={mdiFormatListCheckbox}
@@ -42,7 +42,7 @@ const WhatIDo = () => {
         <div
           data-aos="fade-right"
           data-aos-duration="500"
-          className="flex gap-4 rounded-3xl bg-fuchsia-200/50 p-7 backdrop-blur-xl dark:border dark:border-gray-500 dark:bg-fuchsia-100/10">
+          className="flex gap-4 rounded-3xl bg-fuchsia-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-fuchsia-100/5">
           <div>
             <Icon
               path={mdiChip}
@@ -63,7 +63,7 @@ const WhatIDo = () => {
         <div
           data-aos="fade-right"
           data-aos-duration="600"
-          className="flex gap-4 rounded-3xl bg-teal-200/50 p-7 backdrop-blur-xl dark:border dark:border-gray-500 dark:bg-teal-200/10">
+          className="flex gap-4 rounded-3xl bg-teal-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-teal-200/5">
           <div>
             <Icon
               path={mdiPoll}
@@ -84,7 +84,7 @@ const WhatIDo = () => {
         <div
           data-aos="fade-right"
           data-aos-duration="500"
-          className="flex gap-4 rounded-3xl bg-orange-200/50 p-7 backdrop-blur-xl dark:border dark:border-gray-500 dark:bg-orange-100/10">
+          className="flex gap-4 rounded-3xl bg-orange-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-orange-100/5">
           <div>
             <Icon
               path={mdiDatabase}
@@ -105,7 +105,7 @@ const WhatIDo = () => {
         <div
           data-aos="fade-right"
           data-aos-duration="500"
-          className="flex gap-4 rounded-3xl bg-yellow-200/50 p-7 backdrop-blur-xl dark:border dark:border-gray-500 dark:bg-yellow-100/10">
+          className="flex gap-4 rounded-3xl bg-yellow-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-yellow-100/5">
           <div>
             <Icon
               path={mdiApplicationBraces}
@@ -126,7 +126,7 @@ const WhatIDo = () => {
         <div
           data-aos="fade-right"
           data-aos-duration="600"
-          className="flex gap-4 rounded-3xl bg-cyan-200/50 p-7 backdrop-blur-xl dark:border dark:border-gray-500 dark:bg-cyan-100/10">
+          className="flex gap-4 rounded-3xl bg-cyan-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-cyan-100/5">
           <div>
             <Icon
               path={mdiWeb}
