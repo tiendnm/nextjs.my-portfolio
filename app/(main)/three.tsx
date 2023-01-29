@@ -1,9 +1,8 @@
 "use client";
+import { useDarkMode } from "@contexts/AppContext";
 import { memo, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { DragControls } from "three/examples/jsm/controls/DragControls";
-import { useDarkMode } from "@contexts/AppContext";
 
 const colorPaletteLight = ["#772aa1", "#2b30c2", "#662ba9", "#552cb0", "#482db6"];
 const colorPaletteDark = ["#7accff", "#ffa8fd", "#97c4ff", "#bcbafe", "#ffa8fd"];
@@ -12,11 +11,25 @@ const getRandomFromRange = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
 };
 
+// Scene
+const scene = new THREE.Scene();
+
+// Geometry
+const geometry = new THREE.SphereGeometry(3, 64, 64);
+
+// Directional Light
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.25);
+
+// Hemisphere Light
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080);
+
+// Light Holder Group
+const lightHolder = new THREE.Group();
+
+let meshArray: THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>[] = [];
+
+//Function Component
 function Three() {
-  let meshArray: THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>[] = useMemo(
-    () => [],
-    []
-  );
   // // Canvas
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -28,17 +41,7 @@ function Three() {
     return darkMode ? colorPaletteLight : colorPaletteDark;
   }, [darkMode]);
 
-  // Scene
-  const scene = useMemo(() => {
-    return new THREE.Scene();
-  }, []);
-
-  // Geometry
-  const geometry = useMemo(() => {
-    return new THREE.SphereGeometry(3, 64, 64);
-  }, []);
-
-  //camera
+  //Camera
   const camera = useMemo(() => {
     if (typeof window !== "undefined") {
       return new THREE.PerspectiveCamera(2, window.innerWidth / window.innerHeight);
@@ -46,35 +49,16 @@ function Three() {
     return null;
   }, []);
 
-  const dirLight = useMemo(() => {
-    return new THREE.DirectionalLight(0xffffff, 0.25);
-  }, []);
-
-  const hemiLight = useMemo(() => {
-    return new THREE.HemisphereLight(0xffffff, 0x808080);
-  }, []);
-
-  const lightHolder = useMemo(() => {
-    return new THREE.Group();
-  }, []);
-
+  // First Load
   useEffect(() => {
     if (camera) {
-      camera.position.set(0, 0, -700);
+      camera.position.set(0, 0, -1000);
       scene.add(camera);
     }
     dirLight.position.set(10, 10, 0);
     lightHolder.add(hemiLight);
     lightHolder.add(dirLight);
     scene.add(lightHolder);
-
-    // directional light
-
-    // scene.add(dirLight);
-
-    // hemisphere light
-
-    // scene.add(hemiLight);
 
     for (let i = 0; i < colorPalette.length; i++) {
       const color = colorPalette[i];
@@ -91,8 +75,9 @@ function Three() {
       meshArray.push(mesh);
       scene.add(mesh);
     }
-  }, []);
+  }, [camera]);
 
+  // Render WEBGL
   useEffect(() => {
     let requestFrameID: number;
     // canvas
@@ -111,23 +96,16 @@ function Three() {
       const orbitControls = new OrbitControls(camera, canvas);
       orbitControls.enableRotate = true;
       orbitControls.autoRotate = true;
-      orbitControls.enableZoom = false;
+      orbitControls.enableZoom = true;
       orbitControls.autoRotateSpeed = 0.5;
       orbitControls.enablePan = false;
+      orbitControls.enableDamping = true;
+      orbitControls.dampingFactor = 0.05;
+
       const copyLight = () => {
         lightHolder.quaternion.copy(camera.quaternion);
       };
       orbitControls.addEventListener("change", copyLight);
-      // drag controls
-      // const dragControls = new DragControls([mesh1, mesh2, mesh3, mesh4], camera, canvas);
-      // const dragStart = (event: THREE.Event) => {
-      //   event.object.material.emissive.set(0xaaaaaa);
-      // };
-      // const dragEnd = (event: THREE.Event) => {
-      //   event.object.material.emissive.set(0x000000);
-      // };
-      // dragControls.addEventListener("dragstart", dragStart);
-      // dragControls.addEventListener("dragend", dragEnd);
 
       // animate
       const animate = () => {
@@ -154,13 +132,13 @@ function Three() {
         // dispose webgl
         webGLRenderer.dispose();
         // remove event listener
-        // dragControls.removeEventListener("dragstart", dragStart);
-        // dragControls.removeEventListener("dragend", dragEnd);
+        orbitControls.removeEventListener("change", copyLight);
         window.removeEventListener("resize", resize);
       };
     }
-  }, [camera, dirLight, scene]);
+  }, [camera]);
 
+  // Change Color
   useEffect(() => {
     if (meshArray.length === 5) {
       for (let i = 0; i < meshArray.length; i++) {
@@ -168,7 +146,9 @@ function Three() {
         meshArray[i].material.color.set(color);
       }
     }
-  }, [colorPalette, darkMode, meshArray]);
+  }, [colorPalette, darkMode]);
+
+  // Render
   return (
     <>
       <canvas
@@ -177,4 +157,4 @@ function Three() {
     </>
   );
 }
-export default memo(Three);
+export default Three;
