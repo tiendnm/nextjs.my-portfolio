@@ -25,7 +25,7 @@ function Three() {
 
   // Color Palette
   const colorPalette = useMemo(() => {
-    return darkMode ? colorPaletteDark : colorPaletteLight;
+    return darkMode ? colorPaletteLight : colorPaletteDark;
   }, [darkMode]);
 
   // Scene
@@ -41,30 +41,40 @@ function Three() {
   //camera
   const camera = useMemo(() => {
     if (typeof window !== "undefined") {
-      return new THREE.PerspectiveCamera(
-        2,
-        window.innerWidth / window.innerHeight,
-        1,
-        10000
-      );
+      return new THREE.PerspectiveCamera(2, window.innerWidth / window.innerHeight);
     }
     return null;
   }, []);
 
+  const dirLight = useMemo(() => {
+    return new THREE.DirectionalLight(0xffffff, 0.25);
+  }, []);
+
+  const hemiLight = useMemo(() => {
+    return new THREE.HemisphereLight(0xffffff, 0x808080);
+  }, []);
+
+  const lightHolder = useMemo(() => {
+    return new THREE.Group();
+  }, []);
+
   useEffect(() => {
     if (camera) {
-      camera.position.set(500, 100, -700);
+      camera.position.set(0, 0, -700);
       scene.add(camera);
     }
+    dirLight.position.set(10, 10, 0);
+    lightHolder.add(hemiLight);
+    lightHolder.add(dirLight);
+    scene.add(lightHolder);
+
     // directional light
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
-    dirLight.position.set(0, 10, -20);
-    scene.add(dirLight);
+
+    // scene.add(dirLight);
 
     // hemisphere light
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xdbdbdb);
-    hemiLight.position.set(0, 0, 0);
-    scene.add(hemiLight);
+
+    // scene.add(hemiLight);
 
     for (let i = 0; i < colorPalette.length; i++) {
       const color = colorPalette[i];
@@ -104,10 +114,10 @@ function Three() {
       orbitControls.enableZoom = false;
       orbitControls.autoRotateSpeed = 0.5;
       orbitControls.enablePan = false;
-      // const copyLight = () => {
-      //   spotLight.position.copy(camera.position);
-      // };
-      // orbitControls.addEventListener("change", copyLight);
+      const copyLight = () => {
+        lightHolder.quaternion.copy(camera.quaternion);
+      };
+      orbitControls.addEventListener("change", copyLight);
       // drag controls
       // const dragControls = new DragControls([mesh1, mesh2, mesh3, mesh4], camera, canvas);
       // const dragStart = (event: THREE.Event) => {
@@ -123,6 +133,7 @@ function Three() {
       const animate = () => {
         // request frame
         requestFrameID = requestAnimationFrame(animate);
+
         orbitControls.update();
         render();
       };
@@ -148,7 +159,7 @@ function Three() {
         window.removeEventListener("resize", resize);
       };
     }
-  }, [camera, scene]);
+  }, [camera, dirLight, scene]);
 
   useEffect(() => {
     if (meshArray.length === 5) {
