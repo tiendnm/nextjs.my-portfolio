@@ -1,103 +1,163 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { DragControls } from "three/examples/jsm/controls/DragControls";
-export default function Three() {
+import { useDarkMode } from "@contexts/AppContext";
+
+const colorPaletteLight = ["#772aa1", "#2b30c2", "#662ba9", "#552cb0", "#482db6"];
+const colorPaletteDark = ["#7accff", "#ffa8fd", "#97c4ff", "#bcbafe", "#ffa8fd"];
+
+const getRandomFromRange = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
+};
+
+function Three() {
+  let meshArray: THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>[] = useMemo(
+    () => [],
+    []
+  );
+  // // Canvas
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // // Dark mode
+  const { darkMode } = useDarkMode();
+
+  // Color Palette
+  const colorPalette = useMemo(() => {
+    return darkMode ? colorPaletteDark : colorPaletteLight;
+  }, [darkMode]);
+
+  // Scene
+  const scene = useMemo(() => {
+    return new THREE.Scene();
+  }, []);
+
+  // Geometry
+  const geometry = useMemo(() => {
+    return new THREE.SphereGeometry(3, 64, 64);
+  }, []);
+
+  //camera
+  const camera = useMemo(() => {
+    if (typeof window !== "undefined") {
+      return new THREE.PerspectiveCamera(
+        2,
+        window.innerWidth / window.innerHeight,
+        1,
+        10000
+      );
+    }
+    return null;
+  }, []);
+
   useEffect(() => {
-    let req: any = null;
-    const canvasWidth = window.innerWidth;
-    const canvasHeight = window.innerHeight;
-    const scene = new THREE.Scene();
-    const geo = new THREE.SphereGeometry(3, 64, 64);
-    const material = new THREE.MeshPhysicalMaterial({
-      color: "#772aa1",
-    });
-    const material2 = new THREE.MeshPhysicalMaterial({
-      color: "#2b30c2",
-    });
-    const material3 = new THREE.MeshPhysicalMaterial({
-      color: "#7accff",
-    });
-    const material4 = new THREE.MeshPhysicalMaterial({
-      color: "#ffa8fd",
-    });
-    const mesh = new THREE.Mesh(geo, material);
-    mesh.position.set(15, -8, -10);
-    scene.add(mesh);
-
-    const mesh2 = new THREE.Mesh(geo, material2);
-    mesh2.position.set(-12, -2.5, -5);
-    scene.add(mesh2);
-
-    const mesh3 = new THREE.Mesh(geo, material3);
-    mesh3.position.set(9, 2.5, 0);
-    scene.add(mesh3);
-
-    const mesh4 = new THREE.Mesh(geo, material4);
-    mesh4.position.set(-10, 8, 10);
-    scene.add(mesh4);
-
+    if (camera) {
+      camera.position.set(500, 100, -700);
+      scene.add(camera);
+    }
+    // directional light
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
-    dirLight.position.set(0, 10, -10);
-    dirLight.castShadow = true;
-    dirLight.shadow.camera.top = 3;
-    dirLight.shadow.camera.bottom = -2;
-    dirLight.shadow.camera.left = -2;
-    dirLight.shadow.camera.right = 2;
-    dirLight.shadow.camera.near = 0.1;
-    dirLight.shadow.camera.far = 40;
+    dirLight.position.set(0, 10, -20);
     scene.add(dirLight);
 
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x919090);
+    // hemisphere light
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xdbdbdb);
     hemiLight.position.set(0, 0, 0);
     scene.add(hemiLight);
 
-    const camera = new THREE.PerspectiveCamera(2, canvasWidth / canvasHeight, 1, 10000);
-    camera.position.set(500, 100, -700);
-    scene.add(camera);
+    for (let i = 0; i < colorPalette.length; i++) {
+      const color = colorPalette[i];
+      const randomScale = getRandomFromRange(0.5, 1.5);
+      const randomPositionX = getRandomFromRange(-12, 12);
+      const randomPositionY = getRandomFromRange(-12, 12);
+      const randomPositionZ = getRandomFromRange(-12, 12);
+      const material = new THREE.MeshPhysicalMaterial({
+        color: color,
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.scale.set(randomScale, randomScale, randomScale);
+      mesh.position.set(randomPositionX, randomPositionY, randomPositionZ);
+      meshArray.push(mesh);
+      scene.add(mesh);
+    }
+  }, []);
 
+  useEffect(() => {
+    let requestFrameID: number;
+    // canvas
     const canvas = canvasRef.current;
-    if (canvas) {
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-      renderer.setSize(canvasWidth, canvasHeight);
-      renderer.render(scene, camera);
+    if (canvas && camera) {
+      // WebGL renderer
+      const webGLRenderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+      webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+
       const render = () => {
-        renderer.render(scene, camera);
+        webGLRenderer.render(scene, camera);
       };
 
-      const controls = new OrbitControls(camera, canvas);
-      controls.enableRotate = false;
-      controls.autoRotate = true;
-      controls.enableZoom = false;
-      controls.autoRotateSpeed = 2;
-      controls.enablePan = false;
+      // orbit controls
+      const orbitControls = new OrbitControls(camera, canvas);
+      orbitControls.enableRotate = true;
+      orbitControls.autoRotate = true;
+      orbitControls.enableZoom = false;
+      orbitControls.autoRotateSpeed = 0.5;
+      orbitControls.enablePan = false;
+      // const copyLight = () => {
+      //   spotLight.position.copy(camera.position);
+      // };
+      // orbitControls.addEventListener("change", copyLight);
+      // drag controls
+      // const dragControls = new DragControls([mesh1, mesh2, mesh3, mesh4], camera, canvas);
+      // const dragStart = (event: THREE.Event) => {
+      //   event.object.material.emissive.set(0xaaaaaa);
+      // };
+      // const dragEnd = (event: THREE.Event) => {
+      //   event.object.material.emissive.set(0x000000);
+      // };
+      // dragControls.addEventListener("dragstart", dragStart);
+      // dragControls.addEventListener("dragend", dragEnd);
 
-      const dragStart = (event: THREE.Event) => {
-        event.object.material.emissive.set(0xaaaaaa);
-      };
-      const dragEnd = (event: THREE.Event) => {
-        event.object.material.emissive.set(0x000000);
-      };
-      const controls2 = new DragControls([mesh, mesh2, mesh3, mesh4], camera, canvas);
-      controls2.addEventListener("dragstart", dragStart);
-      controls2.addEventListener("dragend", dragEnd);
-
+      // animate
       const animate = () => {
-        req = requestAnimationFrame(animate);
-        controls.update();
+        // request frame
+        requestFrameID = requestAnimationFrame(animate);
+        orbitControls.update();
         render();
       };
       animate();
+
+      // window resize
+      const resize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+      };
+      window.addEventListener("resize", resize);
+
+      // component will unmount
       return () => {
-        cancelAnimationFrame(req);
-        renderer.dispose();
-        controls2.removeEventListener("dragstart", dragStart);
-        controls2.removeEventListener("dragend", dragEnd);
+        // cancel frame
+        cancelAnimationFrame(requestFrameID);
+        // dispose webgl
+        webGLRenderer.dispose();
+        // remove event listener
+        // dragControls.removeEventListener("dragstart", dragStart);
+        // dragControls.removeEventListener("dragend", dragEnd);
+        window.removeEventListener("resize", resize);
       };
     }
-  }, []);
+  }, [camera, scene]);
+
+  useEffect(() => {
+    if (meshArray.length === 5) {
+      for (let i = 0; i < meshArray.length; i++) {
+        const color = colorPalette[i];
+        meshArray[i].material.color.set(color);
+      }
+    }
+  }, [colorPalette, darkMode, meshArray]);
   return (
     <>
       <canvas
@@ -106,3 +166,4 @@ export default function Three() {
     </>
   );
 }
+export default memo(Three);

@@ -16,7 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSelectedLayoutSegment, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDarkMode } from "@hooks/useDarkMode";
+import { useDarkMode } from "@contexts/AppContext";
 import styles from "./main.module.css";
 const headerTabs = [
   {
@@ -115,7 +115,7 @@ export default function HeaderNav() {
                   "transition-all duration-300 ease-in-out",
                   "cursor-pointer",
                 ])}>
-                {theme.isDarkMode ? (
+                {theme.darkMode ? (
                   <Icon
                     path={mdiWhiteBalanceSunny}
                     size={1}
@@ -211,7 +211,7 @@ export default function HeaderNav() {
                 "transition-all duration-300 ease-in-out",
                 "cursor-pointer",
               ])}>
-              {theme.isDarkMode ? (
+              {theme.darkMode ? (
                 <Icon
                   path={mdiWhiteBalanceSunny}
                   size={1}
