@@ -27,12 +27,12 @@ html {
 html body {
   background: linear-gradient(
     90deg,
-    #ffdbfe,
-    #abdfff,
+    #cdb4db,
+    #ffc8dd,
     #243b55,
     #141e30,
-    #000241,
-    #33004e
+    #061445,
+    #351a68
   );
   background-size: 600%;
   background-position: 0%;
@@ -49,12 +49,12 @@ html.light .bg-gradient-transform {
 html .bg-gradient-transform {
   background: linear-gradient(
     90deg,
-    #ffdbfe,
-    #abdfff,
+    #cdb4db,
+    #ffc8dd,
     #243b55,
     #141e30,
-    #000241,
-    #33004e
+    #061445,
+    #351a68
   );
   background-size: 600%;
   background-position: 50%;

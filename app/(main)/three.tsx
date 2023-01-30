@@ -4,8 +4,22 @@ import { memo, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const colorPaletteLight = ["#772aa1", "#2b30c2", "#662ba9", "#552cb0", "#482db6"];
-const colorPaletteDark = ["#7accff", "#ffa8fd", "#97c4ff", "#bcbafe", "#ffa8fd"];
+const colorPaletteLight = [
+  "#72ddf7",
+  "#8093f1",
+  "#b388eb",
+  "#f7aef8",
+  "#fdc5f5",
+  "#ff7bac",
+];
+const colorPaletteDark = [
+  "#7400b8",
+  "#5932e6",
+  "#b332e6",
+  "#8632e6",
+  "#e032e6",
+  "#111a6f",
+];
 
 const getRandomFromRange = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
@@ -18,7 +32,7 @@ const scene = new THREE.Scene();
 const geometry = new THREE.SphereGeometry(3, 64, 64);
 
 // Directional Light
-const dirLight = new THREE.DirectionalLight(0xffffff, 0.25);
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.35);
 
 // Hemisphere Light
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080);
@@ -42,7 +56,8 @@ function Three() {
 
   // Color Palette
   const colorPalette = useMemo(() => {
-    return darkMode ? colorPaletteLight : colorPaletteDark;
+    const pallete = darkMode ? colorPaletteDark : colorPaletteLight;
+    return [...pallete];
   }, [darkMode]);
 
   //Camera
@@ -61,9 +76,9 @@ function Three() {
     }
     dirLight.position.set(10, 10, 0);
     // lightHolder.add(hemiLight);
+    lightHolder.add(hemiLight);
     lightHolder.add(dirLight);
     scene.add(lightHolder);
-    scene.add(hemiLight);
 
     for (let i = 0; i < colorPalette.length; i++) {
       const color = colorPalette[i];
@@ -73,6 +88,8 @@ function Three() {
       const randomPositionZ = getRandomFromRange(-12, 12);
       const material = new THREE.MeshPhysicalMaterial({
         color: color,
+        metalness: 0,
+        roughness: 0,
       });
       const mesh = new THREE.Mesh(geometry, material);
       mesh.scale.set(randomScale, randomScale, randomScale);
@@ -146,7 +163,7 @@ function Three() {
 
   // Change Color
   useEffect(() => {
-    if (meshArray.length === 5) {
+    if (meshArray.length === colorPalette.length) {
       for (let i = 0; i < meshArray.length; i++) {
         const color = colorPalette[i];
         meshArray[i].material.color.set(color);

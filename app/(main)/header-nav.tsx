@@ -185,7 +185,7 @@ export default function HeaderNav() {
                     className={clsx([
                       "text-gray-600 dark:text-white",
                       "bg-white dark:bg-gray-600",
-                      styles["nav-button"],
+                      styles["nav-button-light"],
                       {
                         // [styles.expanded]: isNavExpanded,
                         [styles.selected]: isSelected,
