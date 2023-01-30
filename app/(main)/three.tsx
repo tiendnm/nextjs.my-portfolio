@@ -26,7 +26,11 @@ const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080);
 // Light Holder Group
 const lightHolder = new THREE.Group();
 
-let meshArray: THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>[] = [];
+// Ambient Light
+// const ambientLight = new THREE.AmbientLight(0xabdfff);
+
+// Mess Array
+const meshArray: THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>[] = [];
 
 //Function Component
 function Three() {
@@ -56,9 +60,10 @@ function Three() {
       scene.add(camera);
     }
     dirLight.position.set(10, 10, 0);
-    lightHolder.add(hemiLight);
+    // lightHolder.add(hemiLight);
     lightHolder.add(dirLight);
     scene.add(lightHolder);
+    scene.add(hemiLight);
 
     for (let i = 0; i < colorPalette.length; i++) {
       const color = colorPalette[i];
@@ -75,6 +80,7 @@ function Three() {
       meshArray.push(mesh);
       scene.add(mesh);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camera]);
 
   // Render WEBGL
