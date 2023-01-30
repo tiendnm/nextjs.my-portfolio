@@ -4,6 +4,8 @@ import { memo, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+type SphereMesh = THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>;
+
 const colorPaletteLight = [
   "#72ddf7",
   "#8093f1",
@@ -25,6 +27,13 @@ const getRandomFromRange = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
 };
 
+const getObjectSize = (mesh: SphereMesh) => {
+  const measure = new THREE.Vector3();
+  const boundingBox = new THREE.Box3().setFromObject(mesh);
+  const size = boundingBox.getSize(measure);
+  return size;
+};
+
 // Scene
 const scene = new THREE.Scene();
 
@@ -40,11 +49,22 @@ const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080);
 // Light Holder Group
 const lightHolder = new THREE.Group();
 
-// Ambient Light
-// const ambientLight = new THREE.AmbientLight(0xabdfff);
+//Camera
+const camera =
+  typeof window !== "undefined"
+    ? new THREE.PerspectiveCamera(2, window.innerWidth / window.innerHeight)
+    : undefined;
 
+if (camera) {
+  camera.position.set(0, 0, -1000);
+  scene.add(camera);
+  dirLight.position.set(10, 10, 0);
+  lightHolder.add(hemiLight);
+  lightHolder.add(dirLight);
+  scene.add(lightHolder);
+}
 // Mess Array
-const meshArray: THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>[] = [];
+const meshArray: SphereMesh[] = [];
 
 //Function Component
 function Three() {
@@ -60,48 +80,88 @@ function Three() {
     return [...pallete];
   }, [darkMode]);
 
-  //Camera
-  const camera = useMemo(() => {
-    if (typeof window !== "undefined") {
-      return new THREE.PerspectiveCamera(2, window.innerWidth / window.innerHeight);
-    }
-    return null;
-  }, []);
-
   // First Load
   useEffect(() => {
-    if (camera) {
-      camera.position.set(0, 0, -1000);
-      scene.add(camera);
-    }
-    dirLight.position.set(10, 10, 0);
-    // lightHolder.add(hemiLight);
-    lightHolder.add(hemiLight);
-    lightHolder.add(dirLight);
-    scene.add(lightHolder);
-
     for (let i = 0; i < colorPalette.length; i++) {
-      const color = colorPalette[i];
-      const randomScale = getRandomFromRange(0.5, 1.5);
-      const randomPositionX = getRandomFromRange(-12, 12);
-      const randomPositionY = getRandomFromRange(-12, 12);
-      const randomPositionZ = getRandomFromRange(-12, 12);
-      const material = new THREE.MeshPhysicalMaterial({
-        color: color,
-        metalness: 0,
-        roughness: 0,
-      });
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.scale.set(randomScale, randomScale, randomScale);
-      mesh.position.set(randomPositionX, randomPositionY, randomPositionZ);
-      meshArray.push(mesh);
-      scene.add(mesh);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [camera]);
+      // biến lưu trạng thái tìm thấy khoảng trống
+      let foundSpace = false;
 
-  // Render WEBGL
-  useEffect(() => {
+      // biến lưu trạng thái vật thể bị đè
+      let overlapped = false;
+
+      // chọn màu theo thứ tự trong color palette
+      const color = colorPalette[i];
+
+      // lọc ra những vật thể cũ;
+      const oldMeshArray = meshArray.filter((value, index) => index < i);
+
+      // sinh ra tỉ lệ ngẫu nhiên
+      const randomScale = getRandomFromRange(0.5, 1.5);
+
+      // khi chưa tìm thấy khoảng trống, thực thi lệnh
+      while (!foundSpace) {
+        // mặc định các vật thể không bị đè
+        overlapped = false;
+
+        // sinh ra vị trí ngẫu nhiên
+        const randomPositionX = getRandomFromRange(-13, 13);
+        const randomPositionY = getRandomFromRange(-13, 13);
+        const randomPositionZ = getRandomFromRange(-13, 13);
+
+        // kiếm tra nếu phát hiện có các vật thể cũ thì so sánh với vật thể hiện tại
+        if (oldMeshArray.length > 0) {
+          // so sánh thông số với các vật thể cũ, nếu đè lên nhau thì ngưng
+          for (let k = 0; k < oldMeshArray.length; k++) {
+            const oldMesh = oldMeshArray[k];
+
+            // lấy thông số của vật thể cũ
+            const oldMeshSize = getObjectSize(oldMesh);
+            // đường kính vật thể cũ
+            const oldMeshDiameter = oldMeshSize.x;
+
+            // vị trí vật thể mới
+            const newMeshPosition = new THREE.Vector3(
+              randomPositionX,
+              randomPositionY,
+              randomPositionZ
+            );
+
+            // đường kính vật thể mới
+            const newMeshDiameter = 6 * randomScale;
+
+            // khoảng cách từ vật thể cũ đến vật thể mới
+            const meshesDistance = newMeshPosition.distanceTo(oldMesh.position);
+
+            // nếu khoảng cách từ 2 tâm bé hơn đường kính của 2 vật thể thì 2 vật thể đang đè lên nhau
+            if (meshesDistance <= newMeshDiameter + oldMeshDiameter) {
+              overlapped = true;
+              break;
+            }
+          }
+          // nếu chưa phát hiện trùng nhau thì đã tìm thấy khoảng trống
+          if (!overlapped) {
+            foundSpace = true;
+          }
+        } else {
+          foundSpace = true;
+        }
+
+        // thực hiện thêm vật thể vào bối cảnh nếu như đã tìm thấy khoảng trống
+        if (foundSpace) {
+          const material = new THREE.MeshPhysicalMaterial({
+            color: color,
+            metalness: 0,
+            roughness: 0,
+          });
+          const mesh = new THREE.Mesh(geometry, material);
+          mesh.scale.set(randomScale, randomScale, randomScale);
+          mesh.position.set(randomPositionX, randomPositionY, randomPositionZ);
+          meshArray.push(mesh);
+          scene.add(mesh);
+        }
+      }
+    }
+
     let requestFrameID: number;
     // canvas
     const canvas = canvasRef.current;
@@ -119,7 +179,7 @@ function Three() {
       const orbitControls = new OrbitControls(camera, canvas);
       orbitControls.enableRotate = true;
       orbitControls.autoRotate = true;
-      orbitControls.enableZoom = true;
+      orbitControls.enableZoom = false;
       orbitControls.autoRotateSpeed = 0.5;
       orbitControls.enablePan = false;
       orbitControls.enableDamping = true;
@@ -159,7 +219,7 @@ function Three() {
         window.removeEventListener("resize", resize);
       };
     }
-  }, [camera]);
+  }, []);
 
   // Change Color
   useEffect(() => {
