@@ -27,7 +27,7 @@ html {
 html body {
   background: linear-gradient(
     90deg,
-    #cdb4db,
+    #9c6fa6,
     #ffc8dd,
     #243b55,
     #141e30,
@@ -49,7 +49,7 @@ html.light .bg-gradient-transform {
 html .bg-gradient-transform {
   background: linear-gradient(
     90deg,
-    #cdb4db,
+    #9c6fa6,
     #ffc8dd,
     #243b55,
     #141e30,

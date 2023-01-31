@@ -1,75 +1,14 @@
 "use client";
-import {
-  mdiAccountOutline,
-  mdiCardAccountDetailsOutline,
-  mdiClose,
-  mdiFileAccountOutline,
-  mdiHomeOutline,
-  mdiMenu,
-  mdiMoonWaningCrescent,
-  mdiPostOutline,
-  mdiWhiteBalanceSunny,
-} from "@mdi/js";
+import { navigationMenu } from "@constants";
+import { useDarkMode } from "@contexts/AppContext";
+import { mdiMoonWaningCrescent, mdiWhiteBalanceSunny } from "@mdi/js";
 import Icon from "@mdi/react";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelectedLayoutSegment, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useDarkMode } from "@contexts/AppContext";
+import { usePathname, useRouter, useSelectedLayoutSegment } from "next/navigation";
 import styles from "./main.module.css";
-const headerTabs = [
-  {
-    text: "Home",
-    value: "home",
-    icon: (
-      <Icon
-        path={mdiHomeOutline}
-        size={1}
-      />
-    ),
-  },
-  {
-    text: "About",
-    value: "about",
-    icon: (
-      <Icon
-        path={mdiAccountOutline}
-        size={1}
-      />
-    ),
-  },
-  {
-    text: "Resume",
-    value: "resume",
-    icon: (
-      <Icon
-        path={mdiFileAccountOutline}
-        size={1}
-      />
-    ),
-  },
-  {
-    text: "Blogs",
-    value: "blogs",
-    icon: (
-      <Icon
-        path={mdiPostOutline}
-        size={1}
-      />
-    ),
-  },
-  {
-    text: "Contact",
-    value: "contact",
-    icon: (
-      <Icon
-        path={mdiCardAccountDetailsOutline}
-        size={1}
-      />
-    ),
-  },
-];
+
 export default function HeaderNav() {
   const router = useRouter();
   const theme = useDarkMode();
@@ -84,10 +23,6 @@ export default function HeaderNav() {
         <div
           className={clsx([
             "flex w-full justify-between  px-2  lg:bg-transparent lg:px-0 lg:dark:bg-transparent",
-            {
-              // "bg-stone-100/50 dark:bg-black/50": !isNavExpanded,
-              // "bg-white dark:bg-gray-900": isNavExpanded,
-            },
           ])}>
           <div className="my-2 flex w-full items-center justify-between space-x-4 lg:my-8 ">
             <Link href={"/"}>
@@ -128,54 +63,15 @@ export default function HeaderNav() {
                   />
                 )}
               </span>
-              {/* <span
-                className={clsx([
-                  "visible opacity-100 lg:invisible lg:opacity-0",
-                  "h-[40px] w-[40px]",
-                  "rounded-full",
-                  "hover:bg-[#33b1ff] dark:hover:bg-[#33b1ff]",
-                  "flex items-center justify-center",
-                  "text-gray-600 dark:text-white",
-                  "ml-3 cursor-pointer",
-                  {
-                    "bg-white dark:bg-gray-600": !isNavExpanded,
-                    "bg-[#ff6b60] dark:bg-[#ff6b60] ": isNavExpanded,
-                  },
-                ])}
-                onClick={() => {
-                  setIsNavExpanded((prev) => !prev);
-                }}>
-                {isNavExpanded ? (
-                  <Icon
-                    path={mdiClose}
-                    size={1}
-                  />
-                ) : (
-                  <Icon
-                    path={mdiMenu}
-                    size={1}
-                  />
-                )}
-              </span> */}
             </div>
           </div>
         </div>
-        <nav
-          className={clsx([
-            {
-              // "hidden lg:block": !isNavExpanded,
-              // "block dark:bg-black ": isNavExpanded,
-            },
-          ])}>
-          <ul
-            className={clsx([
-              "my-12 hidden gap-5 lg:flex",
-              // "absolute left-0 top-14 z-50 block w-full rounded-b-[20px] bg-white py-4 drop-shadow-lg dark:bg-gray-900 ":
-              //   isNavExpanded,
-            ])}>
-            {headerTabs.map((tab, index) => {
+        <nav>
+          <ul className={clsx(["my-12 hidden gap-5 lg:flex"])}>
+            {navigationMenu.map((tab, index) => {
               const isSelected =
-                segment === tab.value || (!segment && tab.value == headerTabs[0].value);
+                segment === tab.value ||
+                (!segment && tab.value == navigationMenu[0].value);
               return (
                 <li key={index}>
                   <a
@@ -187,7 +83,6 @@ export default function HeaderNav() {
                       "bg-white dark:bg-gray-600",
                       styles["nav-button-light"],
                       {
-                        // [styles.expanded]: isNavExpanded,
                         [styles.selected]: isSelected,
                       },
                     ])}>

@@ -3,11 +3,14 @@ import { useDarkMode } from "@contexts/AppContext";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 
 type SphereMesh = THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>;
 
-// Number of Spheres
-const SPHERES_COUNT: number = 7;
+const SPHERES_COUNT: number = 8;
+const MAX_SPACE: number = 20;
+const MIN_SCALE: number = 0.8;
+const MAX_SCALE: number = 1.8;
 
 const LIGHT_COLOR_PALETTE: string[] = [
   "#72ddf7",
@@ -47,28 +50,38 @@ const scene = new THREE.Scene();
 // Geometry
 const geometry = new THREE.SphereGeometry(3, 64, 64);
 
-// Directional Light
-const dirLight = new THREE.DirectionalLight(0xffffff, 0.35);
-
-// Hemisphere Light
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080);
+/* Creating a group of lights. */
 
 // Light Holder Group
 const lightHolder = new THREE.Group();
 
+// Directional Light
+// const dirLight = new THREE.DirectionalLight(0xffffff, 0.3);
+// dirLight.target.position.set(0, 0, 0);
+// dirLight.position.set(15, 15, 0);
+const pointLight = new THREE.PointLight(0xffffff, 0.8);
+pointLight.castShadow = true;
+pointLight.position.set(20, 20, 10);
+pointLight.distance = 0;
+// Hemisphere Light
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080, 0.8);
+
+// Add lights to group
+// lightHolder.add(dirLight);
+// lightHolder.add(dirLight.target);
+lightHolder.add(pointLight);
+lightHolder.add(hemiLight);
+scene.add(lightHolder);
+
 //Camera
 const camera =
   typeof window !== "undefined"
-    ? new THREE.PerspectiveCamera(2, window.innerWidth / window.innerHeight)
+    ? new THREE.PerspectiveCamera(2, window.innerWidth / window.innerHeight, 1, 10000)
     : undefined;
 
 if (camera) {
-  camera.position.set(0, 0, -1000);
+  camera.position.set(0, 500, -1000);
   scene.add(camera);
-  dirLight.position.set(10, 10, 0);
-  lightHolder.add(hemiLight);
-  lightHolder.add(dirLight);
-  scene.add(lightHolder);
 }
 // Mess Array
 const meshArray: SphereMesh[] = [];
@@ -102,18 +115,16 @@ function Three() {
       // lọc ra những vật thể cũ;
       const oldMeshArray = meshArray.filter((value, index) => index < i);
 
-      // sinh ra tỉ lệ ngẫu nhiên
-      const randomScale = getRandomFromRange(0.5, 1.5);
-
       // khi chưa tìm thấy khoảng trống, thực thi lệnh
       while (!foundSpace) {
         // mặc định các vật thể không bị đè
         overlapped = false;
-
+        // sinh ra tỉ lệ ngẫu nhiên
+        const randomScale = getRandomFromRange(MIN_SCALE, MAX_SCALE);
         // sinh ra vị trí ngẫu nhiên
-        const randomPositionX = getRandomFromRange(-13, 13);
-        const randomPositionY = getRandomFromRange(-13, 13);
-        const randomPositionZ = getRandomFromRange(-13, 13);
+        const randomPositionX = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
+        const randomPositionY = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
+        const randomPositionZ = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
 
         // kiếm tra nếu phát hiện có các vật thể cũ thì so sánh với vật thể hiện tại
         if (oldMeshArray.length > 0) {
@@ -186,25 +197,27 @@ function Three() {
       orbitControls.enableRotate = true;
       orbitControls.autoRotate = true;
       orbitControls.enableZoom = false;
-      orbitControls.autoRotateSpeed = 0.5;
+      orbitControls.autoRotateSpeed = 1;
       orbitControls.enablePan = false;
       orbitControls.enableDamping = true;
       orbitControls.dampingFactor = 0.05;
 
       const copyLight = () => {
         lightHolder.quaternion.copy(camera.quaternion);
+        // console.log(trackballControls.object.position);
       };
       orbitControls.addEventListener("change", copyLight);
-
       // animate
       const animate = () => {
         // request frame
         requestFrameID = requestAnimationFrame(animate);
-
+        // helper.update();
         orbitControls.update();
+
         render();
       };
       animate();
+      copyLight();
 
       // window resize
       const resize = () => {
@@ -231,6 +244,8 @@ function Three() {
   // Change Color
   useEffect(() => {
     if (meshArray.length === SPHERES_COUNT) {
+      hemiLight.color.set(darkMode ? 0x351a68 : 0xffc8dd);
+      hemiLight.groundColor.set(darkMode ? 0x061445 : 0x9c6fa6);
       for (let i = 0; i < meshArray.length; i++) {
         const color = getRandomItemFromArray(colorPalette);
         meshArray[i].material.color.set(color);
