@@ -13,9 +13,7 @@ export default function Home() {
         "dark:border-r-white/30 dark:border-l-white/10 dark:border-b-white/10 dark:border-t-white/30 ",
         "shadow-lg shadow-black/20",
         "flex h-[90vh] flex-1 justify-center lg:h-[71vh] lg:flex-initial",
-      ])}
-      data-aos="fade-right"
-      data-aos-duration="200">
+      ])}>
       <div className={clsx(["flex flex-col items-center justify-center"])}>
         <Avatar />
         <Name />

@@ -15,17 +15,15 @@ const About = () => {
           "border border-t-white/40 border-b-white/20 border-l-white/20 border-r-white/40",
           "shadow-lg shadow-black/20",
           "dark:border-r-white/30 dark:border-l-white/10 dark:border-b-white/10 dark:border-t-white/30 ",
-        ])}
-        data-aos="fade-right"
-        data-aos-duration="200">
+        ])}>
         <div className="py-12">
           <PageTitle text={"About me"} />
           <div className="grid grid-cols-12 items-center pt-4 md:gap-10 md:pt-[40px]">
-            <div
-              className="col-span-12 md:col-span-4"
-              data-aos="fade-right"
-              data-aos-duration="200">
+            <div className="col-span-12 md:col-span-4">
               <Image
+                data-sal="slide-right"
+                data-sal-delay="300"
+                data-sal-easing="ease-out-back"
                 width={330}
                 height={380}
                 src={"/avatar-1.jpeg"}
