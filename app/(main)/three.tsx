@@ -1,12 +1,15 @@
 "use client";
 import { useDarkMode } from "@contexts/AppContext";
-import { memo, useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 type SphereMesh = THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>;
 
-const colorPaletteLight = [
+// Number of Spheres
+const SPHERES_COUNT: number = 7;
+
+const LIGHT_COLOR_PALETTE: string[] = [
   "#72ddf7",
   "#8093f1",
   "#b388eb",
@@ -14,7 +17,7 @@ const colorPaletteLight = [
   "#fdc5f5",
   "#ff7bac",
 ];
-const colorPaletteDark = [
+const DARK_COLOR_PALETTE: string[] = [
   "#7400b8",
   "#5932e6",
   "#b332e6",
@@ -23,15 +26,19 @@ const colorPaletteDark = [
   "#111a6f",
 ];
 
-const getRandomFromRange = (min: number, max: number) => {
+const getRandomFromRange = (min: number, max: number): number => {
   return Math.random() * (max - min) + min;
 };
 
-const getObjectSize = (mesh: SphereMesh) => {
+const getObjectSize = (mesh: SphereMesh): THREE.Vector3 => {
   const measure = new THREE.Vector3();
   const boundingBox = new THREE.Box3().setFromObject(mesh);
   const size = boundingBox.getSize(measure);
   return size;
+};
+
+const getRandomItemFromArray = (list: any[]): any => {
+  return list[Math.floor(Math.random() * list.length)];
 };
 
 // Scene
@@ -76,21 +83,21 @@ function Three() {
 
   // Color Palette
   const colorPalette = useMemo(() => {
-    const pallete = darkMode ? colorPaletteDark : colorPaletteLight;
+    const pallete = darkMode ? DARK_COLOR_PALETTE : LIGHT_COLOR_PALETTE;
     return [...pallete];
   }, [darkMode]);
 
   // First Load
   useEffect(() => {
-    for (let i = 0; i < colorPalette.length; i++) {
+    for (let i = 0; i < SPHERES_COUNT; i++) {
       // biến lưu trạng thái tìm thấy khoảng trống
       let foundSpace = false;
 
       // biến lưu trạng thái vật thể bị đè
       let overlapped = false;
 
-      // chọn màu theo thứ tự trong color palette
-      const color = colorPalette[i];
+      // chọn màu ngẫu nhiên
+      const color = getRandomItemFromArray(colorPalette);
 
       // lọc ra những vật thể cũ;
       const oldMeshArray = meshArray.filter((value, index) => index < i);
@@ -225,9 +232,9 @@ function Three() {
 
   // Change Color
   useEffect(() => {
-    if (meshArray.length === colorPalette.length) {
+    if (meshArray.length === SPHERES_COUNT) {
       for (let i = 0; i < meshArray.length; i++) {
-        const color = colorPalette[i];
+        const color = getRandomItemFromArray(colorPalette);
         meshArray[i].material.color.set(color);
       }
     }
