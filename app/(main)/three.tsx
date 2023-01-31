@@ -153,6 +153,7 @@ function Three() {
             metalness: 0,
             roughness: 0,
           });
+          material.color.convertSRGBToLinear();
           const mesh = new THREE.Mesh(geometry, material);
           mesh.scale.set(randomScale, randomScale, randomScale);
           mesh.position.set(randomPositionX, randomPositionY, randomPositionZ);
@@ -170,7 +171,8 @@ function Three() {
       const webGLRenderer = new THREE.WebGLRenderer({ canvas, alpha: true });
 
       webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-
+      webGLRenderer.outputEncoding = THREE.sRGBEncoding;
+      // webGLRenderer.physicallyCorrectLights = true
       const render = () => {
         webGLRenderer.render(scene, camera);
       };
