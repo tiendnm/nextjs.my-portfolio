@@ -1,12 +1,9 @@
 import "./globals.css";
-import "aos/dist/aos.css";
 import { cabin } from "@configs/fonts";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import "sal.js/dist/sal.css";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head />

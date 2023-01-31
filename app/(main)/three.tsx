@@ -138,14 +138,11 @@ function Three() {
               break;
             }
           }
-          // nếu chưa phát hiện trùng nhau thì đã tìm thấy khoảng trống
-          if (!overlapped) {
-            foundSpace = true;
-          }
-        } else {
+        }
+        // nếu chưa phát hiện trùng nhau thì đã tìm thấy khoảng trống
+        if (!overlapped) {
           foundSpace = true;
         }
-
         // thực hiện thêm vật thể vào bối cảnh nếu như đã tìm thấy khoảng trống
         if (foundSpace) {
           const material = new THREE.MeshPhysicalMaterial({
@@ -221,6 +218,7 @@ function Three() {
         window.removeEventListener("resize", resize);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Change Color

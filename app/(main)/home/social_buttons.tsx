@@ -1,9 +1,4 @@
-import {
-  mdiFacebook,
-  mdiGithub,
-  mdiLinkedin,
-  mdiTwitter,
-} from "@mdi/js";
+import { mdiFacebook, mdiGithub, mdiLinkedin, mdiTwitter } from "@mdi/js";
 import Icon from "@mdi/react";
 import clsx from "clsx";
 import Link from "next/link";
@@ -12,8 +7,8 @@ const SocialButtons = () => {
   return (
     <div className="flex h-16 items-center gap-3 text-2xl">
       <div
-        data-aos="fade-left"
-        data-aos-duration="500">
+        data-sal="slide-left"
+        data-sal-delay="500">
         <Link
           href={"https://www.linkedin.com/in/tiendnm/"}
           target="_blank"
@@ -36,8 +31,8 @@ const SocialButtons = () => {
         </Link>
       </div>
       <div
-        data-aos="fade-left"
-        data-aos-duration="400">
+        data-sal="slide-left"
+        data-sal-delay="400">
         <Link
           href={"https://github.com/tien-dnm"}
           target="_blank"
@@ -60,8 +55,8 @@ const SocialButtons = () => {
         </Link>
       </div>
       <div
-        data-aos="fade-left"
-        data-aos-duration="300">
+        data-sal="slide-left"
+        data-sal-delay="300">
         <Link
           href={"https://www.facebook.com/tien.dnm/"}
           target="_blank"
@@ -85,8 +80,8 @@ const SocialButtons = () => {
       </div>
 
       <div
-        data-aos="fade-left"
-        data-aos-duration="200">
+        data-sal="slide-left"
+        data-sal-delay="200">
         <Link
           href={"https://twitter.com/tien_dnm"}
           target="_blank"

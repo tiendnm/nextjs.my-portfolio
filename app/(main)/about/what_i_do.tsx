@@ -11,16 +11,13 @@ import Icon from "@mdi/react";
 const WhatIDo = () => {
   return (
     <div className="pb-12">
-      <h3
-        className="pb-5 text-3xl font-medium text-gray-700 dark:text-white "
-        data-aos="fade-right"
-        data-aos-duration="100">
+      <h3 className="pb-5 text-3xl font-medium text-gray-700 dark:text-white ">
         What I do!
       </h3>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 ">
         <div
-          data-aos="fade-right"
-          data-aos-duration="400"
+          data-sal="slide-right"
+          data-sal-delay="300"
           className="flex gap-4 rounded-3xl bg-blue-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-blue-100/5">
           <div>
             <Icon
@@ -40,8 +37,8 @@ const WhatIDo = () => {
           </div>
         </div>
         <div
-          data-aos="fade-right"
-          data-aos-duration="500"
+          data-sal="slide-right"
+          data-sal-delay="300"
           className="flex gap-4 rounded-3xl bg-fuchsia-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-fuchsia-100/5">
           <div>
             <Icon
@@ -61,8 +58,8 @@ const WhatIDo = () => {
           </div>
         </div>
         <div
-          data-aos="fade-right"
-          data-aos-duration="600"
+          data-sal="slide-right"
+          data-sal-delay="300"
           className="flex gap-4 rounded-3xl bg-teal-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-teal-200/5">
           <div>
             <Icon
@@ -82,8 +79,8 @@ const WhatIDo = () => {
           </div>
         </div>
         <div
-          data-aos="fade-right"
-          data-aos-duration="500"
+          data-sal="slide-right"
+          data-sal-delay="300"
           className="flex gap-4 rounded-3xl bg-orange-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-orange-100/5">
           <div>
             <Icon
@@ -103,8 +100,8 @@ const WhatIDo = () => {
           </div>
         </div>
         <div
-          data-aos="fade-right"
-          data-aos-duration="500"
+          data-sal="slide-right"
+          data-sal-delay="300"
           className="flex gap-4 rounded-3xl bg-yellow-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-yellow-100/5">
           <div>
             <Icon
@@ -124,8 +121,8 @@ const WhatIDo = () => {
           </div>
         </div>
         <div
-          data-aos="fade-right"
-          data-aos-duration="600"
+          data-sal="slide-right"
+          data-sal-delay="300"
           className="flex gap-4 rounded-3xl bg-cyan-200/50 p-7 backdrop-blur-sm dark:border dark:border-gray-500 dark:bg-cyan-100/5">
           <div>
             <Icon
