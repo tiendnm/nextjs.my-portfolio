@@ -3,11 +3,12 @@ import { useDarkMode } from "@contexts/AppContext";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 
 type SphereMesh = THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>;
 
-const SPHERES_COUNT: number = 8;
+let requestFrameID: number;
+const SPHERE_RADIUS: number = 3;
+const SPHERES_COUNT: number = 7;
 const MAX_SPACE: number = 20;
 const MIN_SCALE: number = 0.8;
 const MAX_SCALE: number = 1.8;
@@ -48,27 +49,22 @@ const getRandomItemFromArray = (list: any[]): any => {
 const scene = new THREE.Scene();
 
 // Geometry
-const geometry = new THREE.SphereGeometry(3, 64, 64);
-
-/* Creating a group of lights. */
+const geometry = new THREE.SphereGeometry(SPHERE_RADIUS, 64, 64);
 
 // Light Holder Group
 const lightHolder = new THREE.Group();
 
-// Directional Light
-// const dirLight = new THREE.DirectionalLight(0xffffff, 0.3);
-// dirLight.target.position.set(0, 0, 0);
-// dirLight.position.set(15, 15, 0);
-const pointLight = new THREE.PointLight(0xffffff, 0.8);
+// Point light
+const pointLight = new THREE.PointLight(0xffffff, 0.5, 0);
 pointLight.castShadow = true;
+pointLight.shadow.mapSize.width = 1024; // default
+pointLight.shadow.mapSize.height = 1024; // default
 pointLight.position.set(20, 20, 10);
-pointLight.distance = 0;
+
 // Hemisphere Light
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080, 0.8);
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x808080, 1);
 
 // Add lights to group
-// lightHolder.add(dirLight);
-// lightHolder.add(dirLight.target);
 lightHolder.add(pointLight);
 lightHolder.add(hemiLight);
 scene.add(lightHolder);
@@ -122,9 +118,9 @@ function Three() {
         // sinh ra tỉ lệ ngẫu nhiên
         const randomScale = getRandomFromRange(MIN_SCALE, MAX_SCALE);
         // sinh ra vị trí ngẫu nhiên
-        const randomPositionX = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
-        const randomPositionY = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
-        const randomPositionZ = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
+        const randomX = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
+        const randomY = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
+        const randomZ = getRandomFromRange(-MAX_SPACE, MAX_SPACE);
 
         // kiếm tra nếu phát hiện có các vật thể cũ thì so sánh với vật thể hiện tại
         if (oldMeshArray.length > 0) {
@@ -138,14 +134,10 @@ function Three() {
             const oldMeshDiameter = oldMeshSize.x;
 
             // vị trí vật thể mới
-            const newMeshPosition = new THREE.Vector3(
-              randomPositionX,
-              randomPositionY,
-              randomPositionZ
-            );
+            const newMeshPosition = new THREE.Vector3(randomX, randomY, randomZ);
 
             // đường kính vật thể mới
-            const newMeshDiameter = 6 * randomScale;
+            const newMeshDiameter = SPHERE_RADIUS * 2 * randomScale;
 
             // khoảng cách từ vật thể cũ đến vật thể mới
             const meshesDistance = newMeshPosition.distanceTo(oldMesh.position);
@@ -167,27 +159,29 @@ function Three() {
             color: color,
             metalness: 0,
             roughness: 0,
+            reflectivity: 1,
           });
           material.color.convertSRGBToLinear();
           const mesh = new THREE.Mesh(geometry, material);
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
           mesh.scale.set(randomScale, randomScale, randomScale);
-          mesh.position.set(randomPositionX, randomPositionY, randomPositionZ);
+          mesh.position.set(randomX, randomY, randomZ);
           meshArray.push(mesh);
           scene.add(mesh);
         }
       }
     }
 
-    let requestFrameID: number;
     // canvas
     const canvas = canvasRef.current;
     if (canvas && camera) {
       // WebGL renderer
       const webGLRenderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-
+      webGLRenderer.shadowMap.enabled = true;
+      webGLRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
       webGLRenderer.setSize(window.innerWidth, window.innerHeight);
       webGLRenderer.outputEncoding = THREE.sRGBEncoding;
-      // webGLRenderer.physicallyCorrectLights = true
       const render = () => {
         webGLRenderer.render(scene, camera);
       };
@@ -218,7 +212,6 @@ function Three() {
       };
       animate();
       copyLight();
-
       // window resize
       const resize = () => {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -255,11 +248,9 @@ function Three() {
 
   // Render
   return (
-    <>
-      <canvas
-        className="fixed top-0  left-0"
-        ref={canvasRef}></canvas>
-    </>
+    <canvas
+      className="fixed top-0  left-0"
+      ref={canvasRef}></canvas>
   );
 }
 export default Three;
