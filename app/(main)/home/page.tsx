@@ -5,6 +5,21 @@ import Name from "./name";
 import SocialButtons from "./social_buttons";
 export const metadata = {
   title: "Trang chủ",
+  openGraph: {
+    title: "Trang chủ - Tiến Đỗ",
+    description: "Website cá nhân của Tiến Đỗ",
+    url: "https://www.tien-dnm.com",
+    siteName: "Trang chủ - Tiến Đỗ",
+    images: [
+      {
+        url: "/thumbnail.png",
+        width: 1200,
+        height: 627,
+      },
+    ],
+    locale: "vi-VN",
+    type: "website",
+  },
 };
 export default function Home() {
   return (

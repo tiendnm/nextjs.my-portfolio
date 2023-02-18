@@ -6,6 +6,21 @@ import WhatIDo from "./what_i_do";
 import WhoAmI from "./who_am_i";
 export const metadata = {
   title: "Thông tin",
+  openGraph: {
+    title: "Thông tin - Tiến Đỗ",
+    description: "Thông tin cá nhân của Tiến Đỗ",
+    url: "https://www.tien-dnm.com/about",
+    siteName: "Thông tin - Tiến Đỗ",
+    images: [
+      {
+        url: "/thumbnail.png",
+        width: 1200,
+        height: 627,
+      },
+    ],
+    locale: "vi-VN",
+    type: "website",
+  },
 };
 const About = () => {
   return (
