@@ -3,6 +3,9 @@ import Avatar from "./avatar";
 import DownLoadCVButton from "./download_cv_button";
 import Name from "./name";
 import SocialButtons from "./social_buttons";
+export const metadata = {
+  title: "Trang chủ",
+};
 export default function Home() {
   return (
     <div

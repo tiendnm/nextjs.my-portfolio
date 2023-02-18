@@ -4,7 +4,9 @@ import PageTitle from "./page_title";
 import PersonalInfo from "./personal_info";
 import WhatIDo from "./what_i_do";
 import WhoAmI from "./who_am_i";
-
+export const metadata = {
+  title: "Thông tin",
+};
 const About = () => {
   return (
     <div className=" lg:pb-16">

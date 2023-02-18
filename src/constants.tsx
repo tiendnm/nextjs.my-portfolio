@@ -29,16 +29,6 @@ export const navigationMenu = [
     ),
   },
   {
-    text: "Resume",
-    value: "resume",
-    icon: (
-      <Icon
-        path={mdiFileAccountOutline}
-        size={1}
-      />
-    ),
-  },
-  {
     text: "Blogs",
     value: "blogs",
     icon: (
@@ -48,14 +38,14 @@ export const navigationMenu = [
       />
     ),
   },
-  {
-    text: "Contact",
-    value: "contact",
-    icon: (
-      <Icon
-        path={mdiCardAccountDetailsOutline}
-        size={1}
-      />
-    ),
-  },
+  // {
+  //   text: "Contact",
+  //   value: "contact",
+  //   icon: (
+  //     <Icon
+  //       path={mdiCardAccountDetailsOutline}
+  //       size={1}
+  //     />
+  //   ),
+  // },
 ];
