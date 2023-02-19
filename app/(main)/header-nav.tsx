@@ -19,7 +19,7 @@ export default function HeaderNav() {
   };
   return (
     <>
-      <header className="absolute top-0 left-0 z-40 flex w-full items-center justify-between  lg:static ">
+      <header className="pointer-events-none absolute top-0 left-0 z-40 flex w-full items-center  justify-between lg:static">
         <div
           className={clsx([
             "flex w-full justify-between  px-2  lg:bg-transparent lg:px-0 lg:dark:bg-transparent",
@@ -31,7 +31,7 @@ export default function HeaderNav() {
                 height={300}
                 src={"/tien-logo-long.png"}
                 alt="logo"
-                className="w-20"
+                className="pointer-events-auto w-20"
               />
             </Link>
             <div className="flex items-center">
@@ -79,6 +79,7 @@ export default function HeaderNav() {
                       handleNavigate(`/${tab.value}`);
                     }}
                     className={clsx([
+                      "pointer-events-auto",
                       "text-gray-600 dark:text-white",
                       "bg-white dark:bg-gray-600",
                       styles["nav-button-light"],
@@ -104,7 +105,7 @@ export default function HeaderNav() {
                 "dark:bg-gray-600 dark:text-white",
                 "dark:hover:bg-[#33b1ff] dark:hover:text-white",
                 "transition-all duration-300 ease-in-out",
-                "cursor-pointer",
+                "pointer-events-auto cursor-pointer",
               ])}>
               {theme.darkMode ? (
                 <Icon
