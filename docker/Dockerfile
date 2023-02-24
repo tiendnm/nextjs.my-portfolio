@@ -14,6 +14,7 @@ LABEL author="miti"
 WORKDIR /app
 COPY . .
 RUN npm install \
+    && npm install sharp \
     && npm run build \
     && cd .next/standalone 
 
@@ -29,8 +30,6 @@ COPY --from=BUILD /app/.next/static ./.next/static
 COPY --from=BUILD /app/.next/server ./.next/server
 
 EXPOSE 3000
-
-RUN npm i sharp -g
 
 CMD node server.js
 #docker build -t tiendnm/portfolio -f Dockerfile .
