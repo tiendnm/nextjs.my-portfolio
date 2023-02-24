@@ -30,5 +30,7 @@ COPY --from=BUILD /app/.next/server ./.next/server
 
 EXPOSE 3000
 
+RUN npm i sharp -g
+
 CMD node server.js
 #docker build -t tiendnm/portfolio -f Dockerfile .
