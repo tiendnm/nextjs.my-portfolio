@@ -1,5 +1,5 @@
 "use client";
-import { navigationMenu } from "@constants";
+import { navigationMenu } from "@variables";
 import { useDarkMode } from "@contexts/AppContext";
 import { mdiMoonWaningCrescent, mdiWhiteBalanceSunny } from "@mdi/js";
 import Icon from "@mdi/react";

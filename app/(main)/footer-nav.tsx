@@ -1,5 +1,5 @@
 "use client";
-import { navigationMenu } from "@constants";
+import { navigationMenu } from "@variables";
 import clsx from "clsx";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";

@@ -1,3 +1,4 @@
+import { myInformation } from "@variables";
 import clsx from "clsx";
 
 const Name = () => {
@@ -11,13 +12,13 @@ const Name = () => {
           "font-medium",
           "mt-6 mb-1 text-3xl",
         ])}>
-        Đỗ Ngọc Minh Tiến
+        {myInformation.name}
       </div>
       <div
         data-sal="fade"
         data-sal-delay="400"
         className={clsx(["text-gray-600 dark:text-gray-300", "mb-4"])}>
-        Software Engineer
+        {myInformation.jobTitle}
       </div>
     </>
   );

@@ -6,6 +6,7 @@ import {
   mdiCardAccountDetailsOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
+import { PersonalInformation } from "@types";
 
 export const navigationMenu = [
   {
@@ -38,14 +39,13 @@ export const navigationMenu = [
       />
     ),
   },
-  // {
-  //   text: "Contact",
-  //   value: "contact",
-  //   icon: (
-  //     <Icon
-  //       path={mdiCardAccountDetailsOutline}
-  //       size={1}
-  //     />
-  //   ),
-  // },
 ];
+export const myInformation: PersonalInformation = {
+  name: "Đỗ Ngọc Minh Tiến",
+  birthDay: new Date(1999, 4, 1),
+  firstDayOfWork: new Date(2020, 2, 15),
+  jobTitle: "Lập trình viên",
+  phoneNumber: "+84 397 423 971",
+  email: "tien.dnm@outlook.com",
+  address: "Ho Chi Minh City, Vietnam",
+};
