@@ -1,4 +1,4 @@
-import { Cabin } from "@next/font/google";
+import { Cabin } from "next/font/google";
 
 const cabin = Cabin({
   subsets: ["vietnamese"],

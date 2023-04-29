@@ -1,31 +1,48 @@
-.nav-button {
+.nav-button-light {
   @apply flex cursor-pointer items-center rounded-md py-2  md:px-4 xl:px-5;
 }
 
-.nav-button.selected {
-  background: linear-gradient(90deg, #33b1ff, #bc4aff, #bc4aff, #33b1ff);
+.nav-button-light.selected {
+  background: linear-gradient(90deg, #8bbeff, #5c95ff, #5c95ff, #8bbeff);
   background-size: 200%;
   background-position: 0%;
   transition: background-position 500ms;
   @apply text-white;
 }
-.nav-button:hover {
-  background: linear-gradient(90deg, #33b1ff, #bc4aff, #bc4aff, #33b1ff);
+.nav-button-light:hover {
+  background: linear-gradient(90deg, #8bbeff, #5c95ff, #5c95ff, #8bbeff);
   background-size: 200%;
   background-position: 100%;
   transition: background-position 500ms;
   @apply text-white;
 }
 
-.nav-button.expanded {
+/* .nav-button.expanded {
   background: transparent;
   @apply pl-4;
 }
 .nav-button.expanded.selected {
   background: transparent;
-  @apply text-[#33b1ff];
+  @apply text-[#b8c0ff];
 }
 .nav-button.expanded:hover {
   background: transparent;
-  @apply text-[#33b1ff];
+  @apply text-[#b8c0ff];
+} */
+
+.footer {
+  width: inherit;
+  max-width: inherit;
+  @apply fixed bottom-0 z-40  backdrop-blur-sm lg:hidden;
+}
+
+.footer-nav {
+  @apply flex justify-around gap-5;
+}
+.footer-nav .selected {
+  background: linear-gradient(90deg, #8bbeff, #5c95ff, #5c95ff, #8bbeff);
+  background-size: 200%;
+  background-position: 0%;
+  transition: background-position 500ms;
+  @apply text-white;
 }

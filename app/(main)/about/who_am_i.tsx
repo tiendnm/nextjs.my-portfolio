@@ -1,30 +1,34 @@
+import { myInformation } from "@variables";
+
+const yearsOfExperience =
+  new Date(
+    new Date().getTime() - new Date(myInformation.firstDayOfWork).getTime()
+  ).getFullYear() - 1970;
+
+const content = [
+  `Xin chào, tôi là một lập trình viên với hơn ${yearsOfExperience} năm kinh nghiệm.`,
+  `Trong suốt sự nghiệp của mình, tôi đã làm việc trên nhiều dự án khác nhau. Tôi có
+        thể làm việc với cả front-end và back-end, và tôi thích sử dụng chuyên môn của
+        mình để tạo ra những giải pháp tinh tế và hiệu quả cho những vấn đề phức tạp.`,
+  `Ngoài ra, tôi còn rất đam mê học hỏi và tìm hiểu những công nghệ mới. Tôi luôn
+        muốn thử thách bản thân để hoàn thiện kỹ năng và đạt được mục tiêu của mình.`,
+];
 const WhoAmI = () => {
   return (
-    <div className=" md:mr-12 xl:mr-16">
-      <h3
-        className="mb-2.5 text-3xl font-medium text-gray-700 dark:text-white "
-        data-aos="fade-right"
-        data-aos-duration="100">
-        Who am i?
+    <div
+      data-sal="slide-right"
+      data-sal-delay="300"
+      className=" md:mr-12 xl:mr-16">
+      <h3 className="mb-2.5 text-3xl font-medium text-gray-700 dark:text-white ">
+        Tôi là ai?
       </h3>
-      <p
-        className="leading-7  text-gray-600 dark:text-gray-400"
-        data-aos="fade-right"
-        data-aos-duration="200">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-        repellendus a repellat cumque aperiam ullam facere recusandae
-        voluptatum hic aliquid beatae nam error quidem nihil molestias
-        fugiat ipsam, reprehenderit obcaecati!
-      </p>
-      <p
-        className="leading-7  text-gray-600 dark:text-gray-400"
-        data-aos="fade-right"
-        data-aos-duration="300">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-        ut veritatis aperiam culpa, eum labore alias nisi expedita
-        vero beatae porro possimus commodi ullam dignissimos
-        perspiciatis quas at, dolor nesciunt.
-      </p>
+      {content.map((row, index) => (
+        <p
+          key={index}
+          className="leading-7  text-gray-600 dark:text-gray-400">
+          {row}
+        </p>
+      ))}
     </div>
   );
 };

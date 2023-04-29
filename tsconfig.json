@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./",
+    "paths": {
+      "@*": ["src/*"]
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -26,7 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src"
+    "src",
+    "public/ssl/scriphead.js"
   ],
   "exclude": ["node_modules"]
 }

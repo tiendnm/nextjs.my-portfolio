@@ -14,6 +14,7 @@ LABEL author="miti"
 WORKDIR /app
 COPY . .
 RUN npm install \
+    && npm install sharp \
     && npm run build \
     && cd .next/standalone 
 

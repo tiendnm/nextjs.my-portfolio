@@ -1,19 +1,21 @@
 "use client";
+import { AppContextProvider } from "@contexts/AppContext";
 import Preloading from "../preloading";
-import Nav from "./nav";
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import FooterNav from "./footer-nav";
+import HeaderNav from "./header-nav";
+import Three from "./three";
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Preloading />
-      <div className="z-40 mx-auto w-full max-w-full lg:max-w-5xl 2xl:max-w-7xl">
-        <Nav />
-        {children}
-      </div>
+      <AppContextProvider>
+        <Preloading />
+        <Three />
+        <div className="z-40 mx-auto flex h-full w-full max-w-full flex-col flex-nowrap content-center items-stretch justify-start lg:max-w-5xl 2xl:max-w-7xl">
+          <HeaderNav />
+          {children}
+          <FooterNav />
+        </div>
+      </AppContextProvider>
     </>
   );
 }

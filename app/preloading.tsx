@@ -2,7 +2,6 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import AOS from "aos";
 const Preloading = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -10,11 +9,6 @@ const Preloading = () => {
       setLoading(false);
     }, 1000);
   }, []);
-  useEffect(() => {
-    AOS.init({
-      delay: 200,
-    });
-  });
   return (
     <div
       className={clsx([
@@ -33,10 +27,7 @@ const Preloading = () => {
           quality={60}
           alt="Logo"
           sizes="5rem"
-          className={clsx([
-            "transition-all",
-            !loading ? "opacity-0" : "opacity-100",
-          ])}
+          className={clsx(["transition-all", !loading ? "opacity-0" : "opacity-100"])}
         />
       </div>
     </div>

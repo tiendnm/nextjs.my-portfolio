@@ -1,24 +1,46 @@
+import clsx from "clsx";
 import Image from "next/image";
 import PageTitle from "./page_title";
 import PersonalInfo from "./personal_info";
 import WhatIDo from "./what_i_do";
 import WhoAmI from "./who_am_i";
-
+export const metadata = {
+  title: "Thông tin",
+  openGraph: {
+    title: "Thông tin - Tiến Đỗ",
+    description: "Thông tin cá nhân của Tiến Đỗ",
+    url: "https://www.tien-dnm.com/about",
+    siteName: "Thông tin - Tiến Đỗ",
+    images: [
+      {
+        url: "/thumbnail.png",
+        width: 1200,
+        height: 627,
+      },
+    ],
+    locale: "vi-VN",
+    type: "website",
+  },
+};
 const About = () => {
   return (
-    <div
-      className="lg:pb-16"
-      data-aos="fade-right"
-      data-aos-duration="200">
-      <div className="bg-white px-4 transition-colors duration-500 dark:bg-[#111111] sm:px-5 md:px-10 lg:rounded-2xl lg:px-20">
+    <div className=" lg:pb-16">
+      <div
+        className={clsx([
+          "px-4 pb-5 sm:px-5 md:px-10 lg:px-20 lg:pb-0",
+          "bg-gray-200/10 backdrop-blur-sm transition-colors delay-300 duration-1000 dark:bg-[#111111]/10 lg:rounded-2xl ",
+          "border border-t-white/40 border-b-white/20 border-l-white/20 border-r-white/40",
+          "shadow-lg shadow-black/20",
+          "dark:border-r-white/30 dark:border-l-white/10 dark:border-b-white/10 dark:border-t-white/30 ",
+        ])}>
         <div className="py-12">
           <PageTitle text={"About me"} />
           <div className="grid grid-cols-12 items-center pt-4 md:gap-10 md:pt-[40px]">
-            <div
-              className="col-span-12 md:col-span-4"
-              data-aos="fade-right"
-              data-aos-duration="200">
+            <div className="col-span-12 md:col-span-4">
               <Image
+                data-sal="slide-right"
+                data-sal-delay="300"
+                data-sal-easing="ease-out-back"
                 width={330}
                 height={380}
                 src={"/avatar-1.jpeg"}

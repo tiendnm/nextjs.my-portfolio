@@ -1,4 +1,4 @@
-import { SessionProvider } from "services/auth";
+import { SessionProvider } from "@services/auth";
 
 export default function AuthLayout({
   children,

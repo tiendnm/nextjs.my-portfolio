@@ -4,8 +4,8 @@ import styles from "./home.module.css";
 const DownLoadCVButton = () => {
   return (
     <div
-      data-aos="fade-left"
-      data-aos-duration="500">
+      data-sal="fade"
+      data-sal-delay="300">
       <div className={styles["btn-download-cv"]}>
         <Icon
           path={mdiTrayArrowDown}
