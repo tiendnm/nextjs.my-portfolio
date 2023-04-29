@@ -8,7 +8,7 @@ const Avatar = () => {
       data-sal-easing="ease-out-back"
       width={500}
       height={500}
-      src={"/avatar-home.png"}
+      src={"/avatar-home.jpg"}
       placeholder="blur"
       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
       alt="avatar"
