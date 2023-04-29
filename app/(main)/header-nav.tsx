@@ -48,7 +48,7 @@ export default function HeaderNav() {
                   "dark:bg-gray-600 dark:text-white",
                   "dark:hover:bg-[#33b1ff] dark:hover:text-white",
                   "transition-all duration-300 ease-in-out",
-                  "cursor-pointer",
+                  "pointer-events-auto cursor-pointer",
                 ])}>
                 {theme.darkMode ? (
                   <Icon
