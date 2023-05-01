@@ -14,7 +14,7 @@ const DownLoadCVButton = () => {
         <Icon
           path={mdiOpenInNew}
           size={1}></Icon>
-        My resume
+        Xem CV
       </Link>
     </div>
   );

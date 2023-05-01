@@ -28,7 +28,7 @@ const About = () => {
       <div
         className={clsx([
           "px-4 pb-5 sm:px-5 md:px-10 lg:px-20 lg:pb-0",
-          "bg-gray-200/10 backdrop-blur-sm transition-colors delay-300 duration-1000 dark:bg-[#111111]/10 lg:rounded-2xl ",
+          "bg-gray-200/10 backdrop-blur-xl transition-colors delay-300 duration-1000 dark:bg-[#111111]/40 lg:rounded-2xl ",
           "border border-t-white/40 border-b-white/20 border-l-white/20 border-r-white/40",
           "shadow-lg shadow-black/20",
           "dark:border-r-white/30 dark:border-l-white/10 dark:border-b-white/10 dark:border-t-white/30 ",

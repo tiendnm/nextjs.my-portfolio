@@ -6,12 +6,10 @@ const yearsOfExperience =
   ).getFullYear() - 1970;
 
 const content = [
-  `Xin chào, tôi là một lập trình viên với hơn ${yearsOfExperience} năm kinh nghiệm.`,
-  `Trong suốt sự nghiệp của mình, tôi đã làm việc trên nhiều dự án khác nhau. Tôi có
-        thể làm việc với cả front-end và back-end, và tôi thích sử dụng chuyên môn của
-        mình để tạo ra những giải pháp tinh tế và hiệu quả cho những vấn đề phức tạp.`,
-  `Ngoài ra, tôi còn rất đam mê học hỏi và tìm hiểu những công nghệ mới. Tôi luôn
-        muốn thử thách bản thân để hoàn thiện kỹ năng và đạt được mục tiêu của mình.`,
+  `Xin chào, tôi là Minh Tiến, một lập trình viên web và ứng dụng Power Platform với hơn ${yearsOfExperience} năm kinh nghiệm.`,
+  `Tôi có sở trường tạo các giải pháp web linh hoạt và thân thiện với người dùng, tận dụng các công cụ Power Platform để tự động hóa quy trình công việc và cải thiện hiệu suất kinh doanh`,
+  `Tôi thích khám phá những công nghệ và thách thức mới, đồng thời cung cấp các giải pháp hiệu quả đáp ứng nhu cầu của bạn.`,
+  `Tôi luôn sẵn sàng kết nối và hợp tác trong các dự án thú vị, vậy nên hãy để tôi biến tầm nhìn của bạn thành hiện thực.`,
 ];
 const WhoAmI = () => {
   return (
@@ -25,7 +23,7 @@ const WhoAmI = () => {
       {content.map((row, index) => (
         <p
           key={index}
-          className="leading-7  text-gray-600 dark:text-gray-400">
+          className="leading-7  text-gray-800 dark:text-white/80">
           {row}
         </p>
       ))}
