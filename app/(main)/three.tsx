@@ -24,9 +24,9 @@ const LIGHT_COLOR_PALETTE: string[] = [
 const DARK_COLOR_PALETTE: string[] = [
   "#7400b8",
   "#5932e6",
-  "#b332e6",
-  "#8632e6",
-  "#e032e6",
+  "#7d09ab",
+  "#5300b3",
+  "#661a69",
   "#111a6f",
 ];
 

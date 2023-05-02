@@ -26,7 +26,7 @@ export default function Home() {
     <div
       className={clsx([
         "h-full  px-4 pb-5 sm:px-5 md:px-10 lg:px-20 lg:pb-0",
-        "bg-gray-200/10 backdrop-blur-xl transition-colors delay-300 duration-1000 dark:bg-[#111111]/40 lg:rounded-2xl ",
+        "bg-white/20 backdrop-blur-2xl transition-colors delay-300 duration-1000 dark:bg-gray-800/40 lg:rounded-2xl ",
         "border border-t-white/40 border-b-white/20 border-l-white/20 border-r-white/40",
         "dark:border-r-white/30 dark:border-l-white/10 dark:border-b-white/10 dark:border-t-white/30 ",
         "shadow-lg shadow-black/20",
