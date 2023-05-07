@@ -1,5 +1,6 @@
 import { mdiFacebook, mdiGithub, mdiLinkedin, mdiTwitter } from "@mdi/js";
 import Icon from "@mdi/react";
+import { myInformation } from "@variables";
 import clsx from "clsx";
 import Link from "next/link";
 
@@ -10,7 +11,7 @@ const SocialButtons = () => {
         data-sal="slide-left"
         data-sal-delay="500">
         <Link
-          href={"https://www.linkedin.com/in/tiendnm/"}
+          href={`https://www.linkedin.com/in/${myInformation.linkedIn}`}
           target="_blank"
           className={clsx([
             "h-10 w-10",
@@ -34,7 +35,7 @@ const SocialButtons = () => {
         data-sal="slide-left"
         data-sal-delay="400">
         <Link
-          href={"https://github.com/tien-dnm"}
+          href={`https://github.com/${myInformation.github}`}
           target="_blank"
           className={clsx([
             "h-10 w-10",
@@ -58,7 +59,7 @@ const SocialButtons = () => {
         data-sal="slide-left"
         data-sal-delay="300">
         <Link
-          href={"https://www.facebook.com/tien.dnm/"}
+          href={`https://www.facebook.com/${myInformation.facebook}`}
           target="_blank"
           className={clsx([
             "h-10 w-10",
@@ -83,7 +84,7 @@ const SocialButtons = () => {
         data-sal="slide-left"
         data-sal-delay="200">
         <Link
-          href={"https://twitter.com/tien_dnm"}
+          href={`https://twitter.com/${myInformation.twitter}`}
           target="_blank"
           className={clsx([
             "h-10 w-10",

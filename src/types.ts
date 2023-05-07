@@ -6,4 +6,9 @@ export interface PersonalInformation {
   phoneNumber: string;
   email: string;
   address: string;
+  linkedIn: string;
+  github: string;
+  facebook: string;
+  twitter: string;
+  resume: string;
 }
