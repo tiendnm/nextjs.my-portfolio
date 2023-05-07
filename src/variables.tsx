@@ -42,7 +42,7 @@ export const navigationMenu = [
 ];
 
 export const myInformation: PersonalInformation = {
-  name: `${process.env.NAME}`,
+  name: `${process.env.NEXT_PUBLIC_NAME}`,
   birthDay: new Date(`${process.env.DOB}`),
   firstDayOfWork: new Date(`${process.env.FIRSTDAYOFWORK}`),
   jobTitle: `${process.env.JOBTITLE}`,
