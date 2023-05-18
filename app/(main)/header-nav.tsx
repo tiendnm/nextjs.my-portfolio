@@ -8,13 +8,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSelectedLayoutSegment } from "next/navigation";
 import styles from "./main.module.css";
+import useProgressBar from "@hooks/useProgressBar";
+import CustomLink from "@components/CustomLink";
 
 export default function HeaderNav() {
   const router = useRouter();
   const theme = useDarkMode();
   const segment = useSelectedLayoutSegment();
-  const pathname = usePathname();
+  const progress = useProgressBar();
   const handleNavigate = (href: string) => {
+    progress.start();
     router.push(href);
   };
   return (
@@ -74,10 +77,8 @@ export default function HeaderNav() {
                 (!segment && tab.value == navigationMenu[0].value);
               return (
                 <li key={index}>
-                  <a
-                    onClick={() => {
-                      handleNavigate(`/${tab.value}`);
-                    }}
+                  <CustomLink
+                    href={`/${tab.value}`}
                     className={clsx([
                       "pointer-events-auto",
                       "text-gray-600 dark:text-white",
@@ -88,7 +89,7 @@ export default function HeaderNav() {
                       },
                     ])}>
                     <span className="mr-2">{tab.icon}</span> {tab.text}
-                  </a>
+                  </CustomLink>
                 </li>
               );
             })}

@@ -1,10 +1,10 @@
 "use client";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 import sal from "sal.js";
 const Template = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     sal();
   });
-  return children;
+  return <>{children}</>;
 };
 export default Template;

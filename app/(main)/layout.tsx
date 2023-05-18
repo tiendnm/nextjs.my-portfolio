@@ -4,6 +4,7 @@ import Preloading from "../preloading";
 import FooterNav from "./footer-nav";
 import HeaderNav from "./header-nav";
 import Three from "./three";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
