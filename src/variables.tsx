@@ -40,12 +40,18 @@ export const navigationMenu = [
     ),
   },
 ];
+
 export const myInformation: PersonalInformation = {
-  name: "Đỗ Ngọc Minh Tiến",
-  birthDay: new Date(1999, 4, 1),
-  firstDayOfWork: new Date(2020, 2, 15),
-  jobTitle: "Lập trình viên",
-  phoneNumber: "+84 397 423 971",
-  email: "tien.dnm@outlook.com",
-  address: "Ho Chi Minh City, Vietnam",
+  name: `${process.env.NAME}`,
+  birthDay: new Date(`${process.env.DOB}`),
+  firstDayOfWork: new Date(`${process.env.FIRSTDAYOFWORK}`),
+  jobTitle: `${process.env.JOBTITLE}`,
+  phoneNumber: `${process.env.PHONE}`,
+  email: `${process.env.EMAIL}`,
+  address: `${process.env.ADDRESS}`,
+  linkedIn: `${process.env.LINKEDIN}`,
+  github: `${process.env.GITHUB}`,
+  facebook: `${process.env.FACEBOOK}`,
+  twitter: `${process.env.TWITTER}`,
+  resume: `${process.env.RESUME}`,
 };
