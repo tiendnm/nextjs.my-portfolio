@@ -1,7 +1,7 @@
 "use client";
 import useProgressBar from "@hooks/useProgressBar";
 import Link, { LinkProps } from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
 
 type CustomLinkProps = LinkProps & {
@@ -30,7 +30,7 @@ export default function CustomLink({
     <Link
       {...props}
       className={className}
-      href={""}
+      href={href}
       onClick={(e) => {
         e.preventDefault();
         overrideNavigate();

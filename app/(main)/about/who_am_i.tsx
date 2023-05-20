@@ -1,6 +1,6 @@
 import { myInformation } from "@variables";
 
-const WhoAmI = async () => {
+const WhoAmI = () => {
   const yearsOfExperience =
     new Date(
       new Date().getTime() - new Date(myInformation.firstDayOfWork).getTime()

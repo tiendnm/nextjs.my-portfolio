@@ -7,6 +7,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 type SphereMesh = THREE.Mesh<THREE.SphereGeometry, THREE.MeshPhysicalMaterial>;
 
 let requestFrameID: number;
+
 const SPHERE_RADIUS: number = 3;
 const SPHERES_COUNT: number = 7;
 const MAX_SPACE: number = 20;
@@ -93,7 +94,7 @@ function Three() {
   // Color Palette
   const colorPalette = useMemo(() => {
     const pallete = darkMode ? DARK_COLOR_PALETTE : LIGHT_COLOR_PALETTE;
-    return [...pallete];
+    return pallete;
   }, [darkMode]);
 
   // First Load

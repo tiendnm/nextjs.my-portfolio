@@ -11,10 +11,20 @@ import Icon from "@mdi/react";
 const WhatIDo = () => {
   return (
     <div className="pb-12">
-      <h3 className="pb-5 text-3xl font-medium text-gray-700 dark:text-white ">
-        What I do!
+      <h3
+        data-sal="slide-right"
+        data-sal-delay="300"
+        className="pb-5 text-3xl font-medium text-gray-700 dark:text-white ">
+        Về trang web này!
       </h3>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 ">
+      <div
+        data-sal="slide-right"
+        data-sal-delay="400"
+        className="leading-7  text-gray-800 dark:text-white/80">
+        Đây là trang web tôi dùng để áp dụng và nghịch những công nghệ hay tính năng mới
+        vừa học được, sẵn tiện build luôn cái portfolio ^^
+      </div>
+      {/* <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 ">
         <div
           data-sal="slide-right"
           data-sal-delay="300"
@@ -141,7 +151,7 @@ const WhatIDo = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

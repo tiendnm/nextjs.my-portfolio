@@ -34,8 +34,8 @@ const About = () => {
           "dark:border-r-white/30 dark:border-l-white/10 dark:border-b-white/10 dark:border-t-white/30 ",
         ])}>
         <div className="py-12">
-          <PageTitle text={"Về tôi"} />
-          <div className="grid grid-cols-12 items-center pt-4 md:gap-10 md:pt-[40px]">
+          {/* <PageTitle text={"Về tôi"} /> */}
+          <div className="grid grid-cols-12 items-center md:gap-10 ">
             <div className="col-span-12 md:col-span-4">
               <Image
                 data-sal="slide-right"

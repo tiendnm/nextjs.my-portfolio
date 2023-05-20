@@ -1,7 +1,7 @@
 import { myInformation } from "@variables";
 import clsx from "clsx";
 
-const Name = async () => {
+const Name = () => {
   return (
     <>
       <div

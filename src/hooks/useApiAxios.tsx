@@ -6,13 +6,10 @@ const useApiAxios = () => {
   //==========================================================
   const refreshAccessToken = async () => {
     const { refreshToken, accessToken } = getCookies();
-    const { data } = await axios.post(
-      `${api_base_url}/api/v1/auth/refresh-token`,
-      {
-        accessToken,
-        refreshToken,
-      }
-    );
+    const { data } = await axios.post(`${api_base_url}/api/v1/auth/refresh-token`, {
+      accessToken,
+      refreshToken,
+    });
     setCookies("accessToken", data.Token);
     setCookies("refreshToken", data.RefreshToken);
     setCookies("expiration", data.Expiration);
@@ -27,9 +24,7 @@ const useApiAxios = () => {
   axios_instance.interceptors.request.use(
     async (config) => {
       const { accessToken } = getCookies();
-      config.headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
+      config.headers.Authorization = `Bearer ${accessToken}`;
       return config;
     },
     (error) => {
@@ -51,8 +46,7 @@ const useApiAxios = () => {
       ) {
         originalRequest._retry = true;
         const { Token } = await refreshAccessToken();
-        axios_instance.defaults.headers.common["Authorization"] =
-          "Bearer " + Token;
+        axios_instance.defaults.headers.common["Authorization"] = "Bearer " + Token;
         return axios_instance(originalRequest);
       }
       return Promise.reject(error);

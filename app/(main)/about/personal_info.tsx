@@ -5,7 +5,7 @@ import moment from "moment";
 import "moment/locale/vi";
 moment.locale("vi");
 
-const PersonalInfo = async () => {
+const PersonalInfo = () => {
   const birthDay = moment(myInformation.birthDay).format("DD MMMM YYYY");
   return (
     <div

@@ -1,7 +1,7 @@
 import "./globals.css";
+import "sal.js/dist/sal.css";
 import { cabin } from "@configs/fonts";
 
-import "sal.js/dist/sal.css";
 export const metadata = {
   title: {
     default: "Tiến Đỗ",
