@@ -1,4 +1,3 @@
-"use client";
 import Glass from "@components/Glass";
 import Heading from "@components/Heading";
 import Paragraph from "@components/Paragraph";
