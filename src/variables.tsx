@@ -55,3 +55,6 @@ export const myInformation: PersonalInformation = {
   twitter: `${process.env.TWITTER}`,
   resume: `${process.env.RESUME}`,
 };
+
+export const BLUR_URL =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";

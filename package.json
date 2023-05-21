@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^6.0.0",
+    "ckeditor5-custom-build": "file:src/libs/ckeditor 5",
     "cookies-next": "^2.1.1",
     "moment": "^2.29.4",
     "next": "^13.4.3",

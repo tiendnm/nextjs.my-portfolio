@@ -30,8 +30,9 @@ export default function FooterNav() {
                   },
                 ])}
                 key={index}
-                href={tab.value}>
-                {tab.icon} {isSelected && tab.text}
+                href={`/${tab.value}`}>
+                {tab.icon}
+                {/* {isSelected && tab.text} */}
               </CustomLink>
             );
           })}
