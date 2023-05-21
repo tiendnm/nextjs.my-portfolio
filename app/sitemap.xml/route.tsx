@@ -16,6 +16,9 @@ function generateSiteMap() {
      <url>
      <loc>${app_base_url}/blogs</loc>
    </url>
+   <url>
+   <loc>${process.env.RESUME}</loc>
+ </url>
    </urlset>
  `;
 }
