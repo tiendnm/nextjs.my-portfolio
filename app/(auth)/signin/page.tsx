@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "@services/auth";
 import { useRouter } from "next/navigation";
+import CustomLink from "@components/CustomLink";
 
 const loginFields = [
   {
@@ -68,11 +69,11 @@ const SignIn = () => {
             </h2>
             <p className=" mt-5 text-center text-sm text-gray-600">
               {"Don't have an account yet? "}
-              <Link
+              <CustomLink
                 href="#"
                 className={`font-medium text-black hover:text-black`}>
                 Sign up
-              </Link>
+              </CustomLink>
             </p>
           </div>
           <div className="text-danger">{errorMessage}</div>
@@ -111,13 +112,12 @@ const SignIn = () => {
                   Remember me
                 </label>
               </div>
-
               <div className="text-sm">
-                <Link
+                <CustomLink
                   href={"#"}
                   className={`font-medium text-black hover:text-black`}>
                   Forgot your password?
-                </Link>
+                </CustomLink>
               </div>
             </div>
             <button

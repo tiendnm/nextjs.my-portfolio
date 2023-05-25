@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("@styles/ckeditor.tailwind.reset.css");
+@import url("@styles/nprogress.override.css");
 
 ::-webkit-scrollbar {
   @apply h-2 w-2;

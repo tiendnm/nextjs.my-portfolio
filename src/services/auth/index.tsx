@@ -56,10 +56,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   return <Session.Provider value={value}>{children}</Session.Provider>;
 }
 
-export function useSession({
-  required = false,
-  onUnauthorize,
-}: ISessionOption = {}) {
+export function useSession({ required = false, onUnauthorize }: ISessionOption = {}) {
   // ------------------------------------------------------------------
   const context = useContext(Session);
   if (!context) {
@@ -74,13 +71,10 @@ export function useSession({
   const signIn = useCallback(
     async ({ username, password, remember }: ICredentials) => {
       try {
-        const response = await axios.post(
-          `${api_base_url}/v1/auth/access-token`,
-          {
-            username,
-            password,
-          }
-        );
+        const response = await axios.post(`${api_base_url}/v1/auth/access-token`, {
+          username,
+          password,
+        });
         const data = response.data as IAccessTokenResponse;
         setCookie("access_token", data.access_token, { path: "/" });
         setCookie("refresh_token", data.refresh_token, { path: "/" });

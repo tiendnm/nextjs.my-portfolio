@@ -4,13 +4,18 @@ import Link, { LinkProps } from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
 
-type CustomLinkProps = LinkProps & {
-  children?: React.ReactNode;
-  className?: string;
-};
+type CustomLinkProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  keyof LinkProps
+> &
+  LinkProps & {
+    children?: React.ReactNode;
+  } & React.RefAttributes<HTMLAnchorElement>;
 
 export default function CustomLink({
-  href,
+  href = "",
+  onClick,
+  target,
   children,
   className,
   ...props
@@ -20,20 +25,30 @@ export default function CustomLink({
   const progress = useProgressBar();
 
   const overrideNavigate = useCallback(() => {
-    if (pathName !== href) {
+    if (pathName !== href && target !== "_blank") {
       progress.start();
     }
-    router.push(href as string);
-  }, [href, pathName, progress, router]);
+    if (!target || target === "_self") {
+      router.push(href as string);
+    } else {
+      window.open(href as string, target);
+    }
+  }, [href, pathName, progress, router, target]);
 
   return (
     <Link
       {...props}
+      target={target}
       className={className}
       href={href}
       onClick={(e) => {
-        e.preventDefault();
-        overrideNavigate();
+        if (onClick) {
+          progress.start();
+          onClick(e);
+        } else {
+          e.preventDefault();
+          overrideNavigate();
+        }
       }}>
       {children}
     </Link>

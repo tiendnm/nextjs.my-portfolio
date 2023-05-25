@@ -1,3 +1,4 @@
+import CustomLink from "@components/CustomLink";
 import { mdiFacebook, mdiGithub, mdiLinkedin, mdiTwitter } from "@mdi/js";
 import Icon from "@mdi/react";
 import { myInformation } from "@variables";
@@ -10,7 +11,7 @@ const SocialButtons = () => {
       <div
         data-sal="slide-left"
         data-sal-delay="500">
-        <Link
+        <CustomLink
           href={`https://www.linkedin.com/in/${myInformation.linkedIn}`}
           target="_blank"
           className={clsx([
@@ -29,12 +30,12 @@ const SocialButtons = () => {
           <Icon
             path={mdiLinkedin}
             size={1}></Icon>
-        </Link>
+        </CustomLink>
       </div>
       <div
         data-sal="slide-left"
         data-sal-delay="400">
-        <Link
+        <CustomLink
           href={`https://github.com/${myInformation.github}`}
           target="_blank"
           className={clsx([
@@ -53,12 +54,12 @@ const SocialButtons = () => {
           <Icon
             path={mdiGithub}
             size={1}></Icon>
-        </Link>
+        </CustomLink>
       </div>
       <div
         data-sal="slide-left"
         data-sal-delay="300">
-        <Link
+        <CustomLink
           href={`https://www.facebook.com/${myInformation.facebook}`}
           target="_blank"
           className={clsx([
@@ -77,13 +78,13 @@ const SocialButtons = () => {
           <Icon
             path={mdiFacebook}
             size={1}></Icon>
-        </Link>
+        </CustomLink>
       </div>
 
       <div
         data-sal="slide-left"
         data-sal-delay="200">
-        <Link
+        <CustomLink
           href={`https://twitter.com/${myInformation.twitter}`}
           target="_blank"
           className={clsx([
@@ -102,7 +103,7 @@ const SocialButtons = () => {
           <Icon
             path={mdiTwitter}
             size={1}></Icon>
-        </Link>
+        </CustomLink>
       </div>
     </div>
   );

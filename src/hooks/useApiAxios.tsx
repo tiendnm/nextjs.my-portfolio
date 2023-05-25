@@ -3,6 +3,7 @@ import { getCookies, setCookies } from "cookies-next";
 import { api_base_url } from "@utils/url";
 //==========================================================
 const useApiAxios = () => {
+  console.log(api_base_url);
   //==========================================================
   const refreshAccessToken = async () => {
     const { refreshToken, accessToken } = getCookies();

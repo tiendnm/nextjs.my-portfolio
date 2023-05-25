@@ -28,15 +28,16 @@ export default function HeaderNav() {
             "flex w-full justify-between  px-2  lg:bg-transparent lg:px-0 lg:dark:bg-transparent",
           ])}>
           <div className="my-2 flex w-full items-center justify-between space-x-4 lg:my-8 ">
-            <Link href={"/"}>
+            <CustomLink href={"/"}>
               <Image
                 width={300}
                 height={300}
                 src={"/tien-logo-long.png"}
                 alt="logo"
                 className="pointer-events-auto w-20"
+                loading="lazy"
               />
-            </Link>
+            </CustomLink>
             <div className="flex items-center">
               <span
                 onClick={() => {

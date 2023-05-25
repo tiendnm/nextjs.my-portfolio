@@ -15,6 +15,7 @@ const Avatar = () => {
         alt="avatar"
         className="aspect-square overflow-hidden rounded-full object-cover"
         sizes="(max-width: 786px) 256px, 700px"
+        loading="lazy"
       />
     </div>
   );
