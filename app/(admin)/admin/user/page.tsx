@@ -9,10 +9,6 @@ const User = () => {
   // if (status === "loading") {
   //   return <div className="text-red-500">Loading....</div>;
   // }
-  return (
-    <>
-      <Topbar back>QUẢN LÝ NGƯỜI DÙNG</Topbar>
-    </>
-  );
+  return <></>;
 };
 export default User;

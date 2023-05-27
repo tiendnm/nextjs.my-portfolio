@@ -3,17 +3,16 @@ import { getCookies, setCookies } from "cookies-next";
 import { api_base_url } from "@utils/url";
 //==========================================================
 const useApiAxios = () => {
-  console.log(api_base_url);
   //==========================================================
   const refreshAccessToken = async () => {
-    const { refreshToken, accessToken } = getCookies();
+    const { refresh_token, access_token } = getCookies();
     const { data } = await axios.post(`${api_base_url}/api/v1/auth/refresh-token`, {
-      accessToken,
-      refreshToken,
+      access_token,
+      refresh_token,
     });
-    setCookies("accessToken", data.Token);
-    setCookies("refreshToken", data.RefreshToken);
-    setCookies("expiration", data.Expiration);
+    setCookies("access_token", data.Token);
+    setCookies("refresh_token", data.refresh_token);
+    setCookies("expires_time", data.expires_time);
     return data;
   };
   //==========================================================
@@ -24,8 +23,8 @@ const useApiAxios = () => {
   // Request interceptor for API calls
   axios_instance.interceptors.request.use(
     async (config) => {
-      const { accessToken } = getCookies();
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      const { access_token } = getCookies();
+      config.headers.Authorization = `Bearer ${access_token}`;
       return config;
     },
     (error) => {

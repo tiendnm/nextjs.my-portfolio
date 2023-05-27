@@ -1,9 +1,10 @@
+import { AdminContextProvider } from "@contexts/AdminContext";
 import { SessionProvider } from "@services/auth";
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
   return (
     <SessionProvider>
-      <div className="relative h-full w-full overflow-auto bg-slate-300">{children}</div>
+      <AdminContextProvider>{children}</AdminContextProvider>
     </SessionProvider>
   );
 }

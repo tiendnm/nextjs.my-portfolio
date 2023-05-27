@@ -12,4 +12,6 @@ export interface Post {
   is_deleted?: boolean;
   deleted_date?: Date;
   deleted_by?: string;
+  slug: string;
+  thumbnail_link?: string;
 }

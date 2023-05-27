@@ -9,11 +9,7 @@ export const validateCardNumber = (cardNumber: string) =>
 export const isISODate = (str: string) => {
   if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
   const d = new Date(str);
-  return (
-    d instanceof Date &&
-    !isNaN(d as unknown as number) &&
-    d.toISOString() === str
-  ); // valid date
+  return d instanceof Date && !isNaN(d as unknown as number) && d.toISOString() === str; // valid date
 };
 
 export const compareArrays = (a: any[], b: any[]) =>
@@ -32,3 +28,17 @@ export const isValidCookies = (cookies: TmpCookiesObj) => {
   }
   return true;
 };
+
+export function slugify(string: string) {
+  // Xóa các ký tự không phải chữ cái, số và dấu gạch ngang
+  string = removeAccents(string)
+    .replace(/[^\w\s-]/g, "")
+    .toLowerCase()
+    // Thay thế dấu khoảng trắng bằng dấu gạch ngang
+    .replace(/\s+/g, "-")
+    // Loại bỏ các dấu gạch ngang liên tiếp
+    .replace(/--+/g, "-")
+    // Xóa ký tự gạch ngang ở đầu và cuối chuỗi
+    .replace(/^-+|-+$/g, "");
+  return string;
+}

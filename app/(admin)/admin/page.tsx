@@ -1,6 +1,7 @@
 "use client";
 import CustomLink from "@components/CustomLink";
 import Topbar from "@components/admin/Topbar";
+import { useAdminContext } from "@contexts/AdminContext";
 import { useSession } from "@services/auth";
 import { BLUR_URL } from "@variables";
 import Image from "next/image";
@@ -25,41 +26,37 @@ const navigationItems = [
 ];
 
 const Admin = () => {
-  // const { data, status } = useSession({
-  //   required: true,
-  // });
-  // if (status === "loading") {
-  //   return <div className="text-red-500">Loading....</div>;
-  // }
+  useAdminContext({
+    canGoBack: false,
+    canGoHome: false,
+    pageTitle: "TRANG QUẢN TRỊ",
+  });
 
   return (
     <>
-      <Topbar>TRANG QUẢN TRỊ</Topbar>
-      <div className=" mx-auto  flex w-full  flex-col items-center justify-between px-3 py-36 md:max-w-md">
-        <div className="relative h-52 w-52">
-          <Image
-            fill
-            src={"/undraw_cms.svg"}
-            placeholder="blur"
-            blurDataURL={BLUR_URL}
-            alt="avatar"
-            className=""
-            sizes="(max-width: 786px) 256px, 700px"
-            loading="lazy"
-          />
-        </div>
-        <div className="grid w-full grid-cols-2 gap-5">
-          {navigationItems.map((item) => {
-            return (
-              <CustomLink
-                href={item.to}
-                key={item.to}
-                className="flex items-center justify-center rounded-lg bg-white py-10">
-                {item.title}
-              </CustomLink>
-            );
-          })}
-        </div>
+      <div className="relative h-52 w-52">
+        <Image
+          fill
+          src={"/undraw_cms.svg"}
+          placeholder="blur"
+          blurDataURL={BLUR_URL}
+          alt="avatar"
+          className=""
+          sizes="(max-width: 786px) 256px, 700px"
+          loading="lazy"
+        />
+      </div>
+      <div className="grid w-full grid-cols-2 gap-5">
+        {navigationItems.map((item) => {
+          return (
+            <CustomLink
+              href={item.to}
+              key={item.to}
+              className="flex items-center justify-center rounded-lg bg-white py-10">
+              {item.title}
+            </CustomLink>
+          );
+        })}
       </div>
     </>
   );
