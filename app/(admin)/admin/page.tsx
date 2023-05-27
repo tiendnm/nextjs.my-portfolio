@@ -35,7 +35,7 @@ const Admin = () => {
   return (
     <>
       <Topbar>TRANG QUẢN TRỊ</Topbar>
-      <div className="flex flex-col items-center justify-between  px-3 py-36">
+      <div className=" mx-auto  flex w-full  flex-col items-center justify-between px-3 py-36 md:max-w-md">
         <div className="relative h-52 w-52">
           <Image
             fill

@@ -9,7 +9,11 @@ export default async function Page({ params }: { params: { postId: string } }) {
   const data: any = await getPostByID(postId);
   return (
     <>
-      <Topbar canGoBack>CHỈNH SỬA BÀI VIẾT</Topbar>
+      <Topbar
+        back
+        home>
+        CHỈNH SỬA BÀI VIẾT
+      </Topbar>
       <div className="  px-3 pt-20 pb-8 ">
         <PostForm
           title={data.title}

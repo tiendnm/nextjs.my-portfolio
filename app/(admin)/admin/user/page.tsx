@@ -11,7 +11,7 @@ const User = () => {
   // }
   return (
     <>
-      <Topbar canGoBack>QUẢN LÝ NGƯỜI DÙNG</Topbar>
+      <Topbar back>QUẢN LÝ NGƯỜI DÙNG</Topbar>
     </>
   );
 };

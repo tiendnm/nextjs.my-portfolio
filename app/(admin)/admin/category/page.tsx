@@ -11,7 +11,7 @@ const Category = () => {
   // }
   return (
     <>
-      <Topbar canGoBack>QUẢN LÝ DANH MỤC</Topbar>
+      <Topbar back>QUẢN LÝ DANH MỤC</Topbar>
     </>
   );
 };

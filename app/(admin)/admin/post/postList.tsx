@@ -1,29 +1,28 @@
 import CustomLink from "@components/CustomLink";
-import { getPost } from "./getPost";
+import { filterPost, getPost, getPostsCount } from "./getPost";
+import PostListClient from "./postListClient";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { Empty } from "antd";
 
-export default async function ListPost() {
-  const data: any[] = await getPost();
+const PAGE_SIZE: number = 5;
+
+export default async function PostList() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page")!) || 1;
+  const data = await filterPost(page, PAGE_SIZE);
+  const { count } = await getPostsCount();
+
   return (
     <>
       {!data || data.length === 0 ? (
-        <>Chưa có dữ liệu nào</>
+        <Empty description="Không tìm thấy dữ liệu" />
       ) : (
-        <div className="flex flex-col gap-5">
-          {data?.map((item) => {
-            return (
-              <CustomLink
-                key={item._id}
-                href={`admin/post/${item._id}`}>
-                <div className="rounded bg-white p-3">
-                  <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
-                    {item.title}
-                  </div>
-                  <div className="text-sm text-gray-500"> {item.sub_title}</div>
-                </div>
-              </CustomLink>
-            );
-          })}
-        </div>
+        <PostListClient
+          items={data}
+          count={count}
+          pageLength={PAGE_SIZE}
+          page={page}
+        />
       )}
     </>
   );

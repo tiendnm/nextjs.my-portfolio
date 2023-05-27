@@ -9,7 +9,11 @@ export default async function Page({ params }: { params: { postId: string } }) {
 
   return (
     <>
-      <Topbar canGoBack>XEM BÀI VIẾT</Topbar>
+      <Topbar
+        back
+        home>
+        XEM BÀI VIẾT
+      </Topbar>
       <div className="  px-3 pt-20 pb-8 ">
         <div>{data.title}</div>
         <div>{data.sub_title}</div>
