@@ -1,13 +1,13 @@
 "use client";
-import Topbar from "@components/admin/Topbar";
-import { useSession } from "@services/auth";
-import { api_base_url } from "@utils/url";
-import ListPost from "./postList";
-import { Suspense } from "react";
-import { Button, Card, Spin } from "antd";
-import { mdiTrashCan, mdiContentSave, mdiPlus } from "@mdi/js";
-import Icon from "@mdi/react";
 import { useAdminContext } from "@contexts/AdminContext";
+import { mdiPlus } from "@mdi/js";
+import Icon from "@mdi/react";
+import { useSession } from "@services/auth";
+import { Button, Card, Spin } from "antd";
+import { Suspense } from "react";
+import ListPost from "./postList";
+import useProgressBar from "@hooks/useProgressBar";
+import { useRouter } from "next/navigation";
 
 const Post = () => {
   useAdminContext({
@@ -15,7 +15,14 @@ const Post = () => {
     canGoHome: true,
     pageTitle: "BÀI VIẾT",
   });
-
+  const progressBar = useProgressBar();
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+  });
+  if (status === "loading") {
+    return <div className="text-green-500">Authorizing....</div>;
+  }
   return (
     <>
       <Card className="flex w-full flex-col items-stretch justify-center">
@@ -28,6 +35,10 @@ const Post = () => {
         <Button
           type="primary"
           shape="circle"
+          onClick={() => {
+            progressBar.start();
+            router.push("/admin/post/create");
+          }}
           icon={
             <Icon
               path={mdiPlus}

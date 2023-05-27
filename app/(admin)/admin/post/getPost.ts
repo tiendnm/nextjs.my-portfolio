@@ -19,7 +19,7 @@ export async function filterPost({
 }: filterParams): Promise<Post[] | undefined> {
   try {
     const data = await fetch(
-      `${api_base_url}/v1/post/filter?page=${page}&size=${size}&search=${search}&sort=publish_date,created_date`
+      `${api_base_url}/v1/post/filter?page=${page}&size=${size}&search=${search}&sort=-publish_date,-created_date`
     );
     return data.json();
   } catch {
@@ -28,7 +28,10 @@ export async function filterPost({
 }
 
 export async function getPostByID(id: string): Promise<Post> {
-  const data = await fetch(`${api_base_url}/v1/post/${id}`, { cache: "no-cache" });
+  const data = await fetch(`${api_base_url}/v1/post/${id}`, {
+    cache: "no-cache",
+    next: { revalidate: 10 },
+  });
   return data.json();
 }
 

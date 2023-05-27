@@ -1,0 +1,3 @@
+.ant-spin-nested-loading .ant-spin-container::after {
+  background: transparent !important;
+}

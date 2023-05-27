@@ -31,7 +31,12 @@ const Admin = () => {
     canGoHome: false,
     pageTitle: "TRANG QUẢN TRỊ",
   });
-
+  const { status } = useSession({
+    required: true,
+  });
+  if (status === "loading") {
+    return <div className="text-green-500">Authorizing....</div>;
+  }
   return (
     <>
       <div className="relative h-52 w-52">

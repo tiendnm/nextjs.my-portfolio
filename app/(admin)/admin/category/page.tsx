@@ -9,10 +9,6 @@ const Category = () => {
   // if (status === "loading") {
   //   return <div className="text-red-500">Loading....</div>;
   // }
-  return (
-    <>
-      <Topbar back>QUẢN LÝ DANH MỤC</Topbar>
-    </>
-  );
+  return <></>;
 };
 export default Category;

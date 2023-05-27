@@ -1,5 +1,6 @@
 "use client";
 import Topbar from "@components/admin/Topbar";
+import { Spin } from "antd";
 import {
   createContext,
   Dispatch,
@@ -14,11 +15,13 @@ import {
 interface IAdminContext {
   setGoBack: Dispatch<SetStateAction<boolean>>;
   setGoHome: Dispatch<SetStateAction<boolean>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   setTitle: Dispatch<SetStateAction<string>>;
 }
 const initialAdminContext: IAdminContext = {
   setGoHome: () => false,
   setGoBack: () => false,
+  setLoading: () => false,
   setTitle: () => "",
 };
 const AdminContext = createContext<IAdminContext>(initialAdminContext);
@@ -26,12 +29,14 @@ const AdminContext = createContext<IAdminContext>(initialAdminContext);
 export const AdminContextProvider = (props: PropsWithChildren) => {
   const [goHome, setGoHome] = useState(false);
   const [goBack, setGoBack] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
 
   const value = {
     setGoBack,
     setGoHome,
     setTitle,
+    setLoading,
   };
   return (
     <AdminContext.Provider value={value}>
@@ -41,9 +46,14 @@ export const AdminContextProvider = (props: PropsWithChildren) => {
           back={goBack}>
           {title}
         </Topbar>
-        <div className="mx-3 mt-12 flex flex-col items-center justify-between md:mx-auto md:max-w-lg">
-          {props.children}
-        </div>
+        <Spin
+          tip="Đang tải ..."
+          size="large"
+          spinning={loading}>
+          <div className="mx-3 mt-12 flex flex-col items-center justify-between md:mx-auto md:max-w-lg">
+            {props.children}
+          </div>
+        </Spin>
       </div>
     </AdminContext.Provider>
   );
@@ -58,7 +68,7 @@ export function useAdminContext({
   canGoHome: boolean;
   pageTitle: string;
 }) {
-  const { setGoBack, setGoHome, setTitle } = useContext(AdminContext); // first load is light
+  const { setGoBack, setGoHome, setTitle, setLoading } = useContext(AdminContext); // first load is light
   useEffect(() => {
     setGoBack(canGoBack);
   }, [canGoBack, setGoBack]);
@@ -69,5 +79,5 @@ export function useAdminContext({
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
-  return {};
+  return { setLoading };
 }

@@ -1,4 +1,7 @@
+import Topbar from "@components/admin/Topbar";
 import { getPostByID } from "../../getPost";
+import { mdiContentSave, mdiTrashCan } from "@mdi/js";
+import Icon from "@mdi/react";
 import PostForm from "../../postForm";
 import { Post } from "../../postModel";
 
@@ -7,7 +10,6 @@ export default async function Page({ params }: { params: { postId: string } }) {
   const data: Post = await getPostByID(postId);
   return (
     <PostForm
-      key={data._id}
       title={data.title}
       _id={data._id}
       author={data.author}

@@ -1,10 +1,6 @@
-import CustomLink from "@components/CustomLink";
-import { filterPost, getFilteredPostsCount, getPost, getPostsCount } from "./getPost";
+import { useSearchParams } from "next/navigation";
+import { filterPost, getFilteredPostsCount } from "./getPost";
 import PostListClient from "./postListClient";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
-import { Empty, Input } from "antd";
-import Icon from "@mdi/react";
-import { mdiDatabaseSearch, mdiMagnify, mdiSearchWeb } from "@mdi/js";
 
 const PAGE_SIZE: number = 4;
 

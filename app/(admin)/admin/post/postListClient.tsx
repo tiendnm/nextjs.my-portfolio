@@ -137,20 +137,17 @@ export default function PostListClient({
                 round>
                 <List.Item.Meta
                   avatar={
-                    <Avatar
-                      className="relative"
-                      size={"large"}
-                      src={
-                        <Image
-                          src={item.thumbnail_link || "/undraw_upload_image.svg"}
-                          blurDataURL={BLUR_URL}
-                          placeholder="blur"
-                          quality={60}
-                          fill
-                          alt="thumbnail_link"
-                        />
-                      }
-                    />
+                    <div className="relative h-14 w-14  rounded-md">
+                      <Image
+                        src={item.thumbnail_link || "/undraw_upload_image.svg"}
+                        blurDataURL={BLUR_URL}
+                        placeholder="blur"
+                        quality={60}
+                        fill
+                        alt="thumbnail_link"
+                        sizes="100px"
+                      />
+                    </div>
                   }
                   title={
                     <CustomLink

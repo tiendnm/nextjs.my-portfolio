@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, Button, DatePicker, Input } from "antd";
+import { Avatar, Button, DatePicker, Input, Spin, notification } from "antd";
 import { Post } from "./postModel";
 import ClassicEditor from "ckeditor5-custom-build";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -14,6 +14,8 @@ import dayjs from "dayjs";
 import { slugify } from "@utils/datatype";
 import { useRouter } from "next/navigation";
 import useProgressBar from "@hooks/useProgressBar";
+import { useSession } from "@services/auth";
+import useNotification from "antd/es/notification/useNotification";
 export default function PostForm({
   title,
   _id,
@@ -23,17 +25,20 @@ export default function PostForm({
   sub_title,
   slug,
   thumbnail_link,
-}: Post) {
-  useAdminContext({
+}: Partial<Post>) {
+  const formType = _id ? "update" : "create";
+  const { setLoading } = useAdminContext({
     canGoBack: true,
     canGoHome: true,
-    pageTitle: "BÀI VIẾT",
+    pageTitle: formType === "create" ? "Thêm bài viết" : "Chỉnh sửa bài viết",
   });
+
   const router = useRouter();
   const progressBar = useProgressBar();
 
-  const formType = _id ? "update" : "create";
-  const [post, setPost] = useState<Post>({
+  const [notiApi, contextHolder] = useNotification();
+
+  const [post, setPost] = useState<Partial<Post>>({
     title,
     _id,
     author,
@@ -68,20 +73,91 @@ export default function PostForm({
 
   const handleSave = useCallback(async () => {
     const clonePost = { ...post };
-    clonePost.slug = slugify(title);
+    clonePost.slug = slugify(post.title ?? "");
 
-    if (formType === "create") {
-      const newPost = await api.post(`/v1/post`, clonePost);
-      console.log(newPost);
-      // router.push("admin/post/")
-    } else {
-      const res = await api.patch(`/v1/post/${post._id}`, clonePost);
-      const updatedPost = res.data as Post;
-      setPost(updatedPost);
+    if (!clonePost.title) {
+      notiApi.warning({
+        message: `Cảnh báo`,
+        description: "Vui lòng nhập tiêu đề bài viết",
+        placement: "bottom",
+      });
+      return;
     }
-  }, [api, formType, post, title]);
+    if (!clonePost.sub_title) {
+      notiApi.warning({
+        message: `Cảnh báo`,
+        description: "Vui lòng nhập tiêu đề phụ bài viết",
+        placement: "bottom",
+      });
+      return;
+    }
+    if (!clonePost.content) {
+      notiApi.warning({
+        message: `Cảnh báo`,
+        description: "Vui lòng nhập nội dung bài viết",
+        placement: "bottom",
+      });
+      return;
+    }
+    if (!clonePost.author) {
+      notiApi.warning({
+        message: `Cảnh báo`,
+        description: "Vui lòng nhập tác giả bài viết",
+        placement: "bottom",
+      });
+      return;
+    }
+    if (!clonePost.publish_date) {
+      notiApi.warning({
+        message: `Cảnh báo`,
+        description: "Vui lòng chọn ngày phát hành",
+        placement: "bottom",
+      });
+      return;
+    }
+    try {
+      setLoading(true);
+      if (formType === "create") {
+        const res = await api.post(`/v1/post`, clonePost);
+        const newPost = res.data as Post;
+        notiApi.success({
+          message: `Thành công`,
+          description: "Cảm ơn bạn đã đăng bài viết này",
+          placement: "bottom",
+        });
+        progressBar.start();
+        router.push(`admin/post/${newPost._id}`);
+      } else {
+        const res = await api.patch(`/v1/post/${post._id}`, clonePost);
+        const updatedPost = res.data as Post;
+        setPost(updatedPost);
+        notiApi.success({
+          message: `Thành công`,
+          description: "Cảm ơn bạn đã chỉnh sửa bài viết này",
+          placement: "bottom",
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      notiApi.error({
+        message: `Thành công`,
+        description: "Đã có lỗi xảy ra",
+        placement: "bottom",
+      });
+      console.error(error);
+      setLoading(false);
+    }
+  }, [api, formType, notiApi, post, progressBar, router, setLoading]);
+
+  const { status } = useSession({
+    required: true,
+  });
+  if (status === "loading") {
+    return <div className="text-green-500">Authorizing....</div>;
+  }
   return (
     <>
+      {contextHolder}
       <form className="flex flex-col items-center gap-2 pb-4">
         <div className="relative h-32 w-32">
           <Image
@@ -91,6 +167,7 @@ export default function PostForm({
             quality={60}
             fill
             alt="thumbnail_link"
+            sizes="100px"
           />
         </div>
         <div className="w-full">
@@ -131,7 +208,7 @@ export default function PostForm({
           <DatePicker
             className="w-full"
             placeholder="Ngày phát hành"
-            value={dayjs(post.publish_date)}
+            value={post.publish_date && dayjs(post.publish_date)}
             onChange={(date) => {
               const data = date;
               updatePost("publish_date", data?.toDate());
@@ -176,7 +253,6 @@ export default function PostForm({
         <Button
           onClick={handleSave}
           type="primary"
-          className="!bg-emerald-700"
           shape="circle"
           icon={
             <Icon

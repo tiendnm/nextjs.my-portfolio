@@ -1,37 +1,16 @@
-import Topbar from "@components/admin/Topbar";
+import { serialize } from "next-mdx-remote/serialize";
 import { getPostByID } from "../getPost";
-import Icon from "@mdi/react";
-import { mdiTrashCan, mdiPencil } from "@mdi/js";
-import CustomLink from "@components/CustomLink";
+import PostView from "./postView";
+
 export default async function Page({ params }: { params: { postId: string } }) {
   const { postId } = params;
-  const data: any = await getPostByID(postId);
-
+  const data = await getPostByID(postId);
+  const mdxSource = await serialize(data.content as any);
+  console.log(mdxSource);
   return (
-    <>
-      <div className="  px-3 pt-20 pb-8 ">
-        <div>{data.title}</div>
-        <div>{data.sub_title}</div>
-        <div>{data.content}</div>
-        <div>{data.author}</div>
-        <div>{data.publish_date}</div>
-      </div>
-      <div className="fixed bottom-5 right-5 flex gap-2">
-        <button className=" flex h-12 w-12 items-center justify-center rounded-full border border-teal-700 text-teal-700">
-          <Icon
-            path={mdiTrashCan}
-            size={1}
-          />
-        </button>
-        <CustomLink
-          href={`/admin/post/update/${postId}`}
-          className="flex h-12 w-12  items-center justify-center rounded-full  bg-teal-700 text-white">
-          <Icon
-            path={mdiPencil}
-            size={1}
-          />
-        </CustomLink>
-      </div>
-    </>
+    <PostView
+      {...data}
+      mdxSource={mdxSource}
+    />
   );
 }

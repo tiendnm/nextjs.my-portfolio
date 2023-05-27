@@ -1,5 +1,6 @@
 @import url("@styles/ckeditor.tailwind.reset.css");
 @import url("@styles/nprogress.override.css");
+@import url("@styles/antd.override.css");
 @import url("@styles/tailwind.base.override.css");
 
 @tailwind base;
