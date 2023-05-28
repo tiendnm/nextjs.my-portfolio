@@ -53,6 +53,7 @@ export default function PostContentParser({ content }: { content?: string }) {
               src={attribs.src}
               width={400}
               height={400}
+              style={parseStyleString(attribs.style)}
               className={clsx(["h-auto w-full", attribs.class])}
             />
           );
