@@ -7,8 +7,9 @@ import Icon from "@mdi/react";
 import { Button } from "antd";
 import moment from "moment";
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { Post } from "../_model/post.model";
+import PostContentParser from "./post.content.parser";
 
 export default function PostView(props: Post) {
   const { _id, sub_title, title, publish_date, content, author } = props;
@@ -18,15 +19,19 @@ export default function PostView(props: Post) {
     pageTitle: "XEM TRƯỚC BÀI VIẾT",
   });
   const progressbar = useProgressBar();
+
   const router = useRouter();
+
   const handleDelete = useCallback(async () => {
     progressbar.start();
     router.push(`admin/post/delete/${_id}`);
   }, [_id, progressbar, router]);
+
   const handleUpdate = useCallback(async () => {
     progressbar.start();
     router.push(`admin/post/update/${_id}`);
   }, [_id, progressbar, router]);
+
   return (
     <>
       <div className="mx-auto max-w-2xl p-4">
@@ -38,9 +43,7 @@ export default function PostView(props: Post) {
             Ngày xuất bản: {moment(publish_date).format("DD/MM/YYYY")}
           </p>
         </div>
-        <div
-          className="ck-content"
-          dangerouslySetInnerHTML={{ __html: content ?? "" }}></div>
+        <PostContentParser content={content} />
       </div>
       <div className="fixed bottom-5 right-5 flex gap-2">
         <Button

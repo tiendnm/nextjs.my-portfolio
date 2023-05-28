@@ -42,3 +42,19 @@ export function slugify(string: string) {
     .replace(/^-+|-+$/g, "");
   return string;
 }
+export function parseStyleString(styleString: string) {
+  const styleObject = {} as { [key: string]: string };
+
+  if (!styleString) {
+    return styleObject;
+  }
+
+  styleString.split(";").forEach((style) => {
+    if (style.trim() !== "") {
+      const [property, value] = style.split(":").map((part) => part.trim());
+      styleObject[property] = value;
+    }
+  });
+
+  return styleObject;
+}

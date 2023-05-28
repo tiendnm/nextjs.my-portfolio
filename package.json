@@ -14,6 +14,7 @@
     "antd": "^5.5.1",
     "ckeditor5-custom-build": "file:src/libs/ckeditor 5",
     "cookies-next": "^2.1.1",
+    "html-react-parser": "^3.0.16",
     "moment": "^2.29.4",
     "next": "^13.4.4",
     "next-mdx-remote": "^4.4.1",
