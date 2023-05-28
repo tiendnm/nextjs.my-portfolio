@@ -1,3 +1,8 @@
 .ant-spin-nested-loading .ant-spin-container::after {
   background: transparent !important;
 }
+*[class*=" ant-spin"],
+*[class^="ant-spin"] {
+  font-family: unset !important;
+  font-size: unset !important;
+}
