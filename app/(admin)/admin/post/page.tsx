@@ -1,54 +1,24 @@
-"use client";
-import { useAdminContext } from "@contexts/AdminContext";
-import { mdiPlus } from "@mdi/js";
-import Icon from "@mdi/react";
-import { useSession } from "@services/auth";
-import { Button, Card, Spin } from "antd";
-import { Suspense } from "react";
-import ListPost from "./postList";
-import useProgressBar from "@hooks/useProgressBar";
-import { useRouter } from "next/navigation";
+import PostList from "./_components/post.list";
+import { filterPost, getFilteredPostsCount } from "./_fetch/post.fetch";
 
-const Post = () => {
-  useAdminContext({
-    canGoBack: true,
-    canGoHome: true,
-    pageTitle: "BÀI VIẾT",
-  });
-  const progressBar = useProgressBar();
-  const router = useRouter();
-  const { status } = useSession({
-    required: true,
-  });
-  if (status === "loading") {
-    return <div className="text-green-500">Authorizing....</div>;
-  }
+const PAGE_SIZE: number = 4;
+
+export default async function Post({
+  searchParams,
+}: {
+  searchParams: { page: string; search: string };
+}) {
+  const page = parseInt(searchParams.page) || 1;
+  const search = searchParams.search || "";
+  const data = await filterPost({ page, search, size: PAGE_SIZE });
+  const { count } = await getFilteredPostsCount(search);
   return (
-    <>
-      <Card className="flex w-full flex-col items-stretch justify-center">
-        <Suspense fallback={<Spin className="w-full py-10" />}>
-          {/* @ts-expect-error Async Server Component */}
-          <ListPost />
-        </Suspense>
-      </Card>
-      <div className="fixed bottom-5 right-5 flex gap-2">
-        <Button
-          type="primary"
-          shape="circle"
-          onClick={() => {
-            progressBar.start();
-            router.push("/admin/post/create");
-          }}
-          icon={
-            <Icon
-              path={mdiPlus}
-              size={1}
-            />
-          }
-          size={"large"}
-        />
-      </div>
-    </>
+    <PostList
+      search={search}
+      items={data}
+      count={count ?? 0}
+      pageLength={PAGE_SIZE}
+      page={page}
+    />
   );
-};
-export default Post;
+}

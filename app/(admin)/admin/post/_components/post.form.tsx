@@ -1,13 +1,13 @@
 "use client";
 import { Avatar, Button, DatePicker, Input, Spin, notification } from "antd";
-import { Post } from "./postModel";
+import { Post } from "../_model/post.model";
 import ClassicEditor from "ckeditor5-custom-build";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useCallback, useEffect, useState } from "react";
 import { useAdminContext } from "@contexts/AdminContext";
 import Image from "next/image";
 import { BLUR_URL } from "@variables";
-import { mdiTrashCan, mdiContentSave } from "@mdi/js";
+import { mdiTrashCan, mdiContentSave, mdiEye } from "@mdi/js";
 import Icon from "@mdi/react";
 import useApiAxios from "@hooks/useApiAxios";
 import dayjs from "dayjs";
@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import useProgressBar from "@hooks/useProgressBar";
 import { useSession } from "@services/auth";
 import useNotification from "antd/es/notification/useNotification";
+import CustomCKEditor from "@components/CustomCKEditor";
 export default function PostForm({
   title,
   _id,
@@ -30,7 +31,7 @@ export default function PostForm({
   const { setLoading } = useAdminContext({
     canGoBack: true,
     canGoHome: true,
-    pageTitle: formType === "create" ? "Thêm bài viết" : "Chỉnh sửa bài viết",
+    pageTitle: formType === "create" ? "THÊM BÀI VIẾT" : "CHỈNH SỬA BÀI VIẾT",
   });
 
   const router = useRouter();
@@ -70,7 +71,16 @@ export default function PostForm({
     },
     [post]
   );
-
+  const handlePreview = useCallback(() => {
+    progressBar.start();
+    setLoading(true);
+    router.push(`admin/post/preview/${post._id}`);
+  }, [post._id, progressBar, router, setLoading]);
+  const handleDelete = useCallback(() => {
+    progressBar.start();
+    setLoading(true);
+    router.push(`admin/post/delete/${post._id}`);
+  }, [post._id, progressBar, router, setLoading]);
   const handleSave = useCallback(async () => {
     const clonePost = { ...post };
     clonePost.slug = slugify(post.title ?? "");
@@ -126,7 +136,7 @@ export default function PostForm({
           placement: "bottom",
         });
         progressBar.start();
-        router.push(`admin/post/${newPost._id}`);
+        router.push(`admin/post/update/${newPost._id}`);
       } else {
         const res = await api.patch(`/v1/post/${post._id}`, clonePost);
         const updatedPost = res.data as Post;
@@ -140,7 +150,7 @@ export default function PostForm({
       }
     } catch (error) {
       notiApi.error({
-        message: `Thành công`,
+        message: `Lỗi`,
         description: "Đã có lỗi xảy ra",
         placement: "bottom",
       });
@@ -228,8 +238,7 @@ export default function PostForm({
         </div>
         <div className="w-full">
           <label>Nội dung:</label>
-          <CKEditor
-            editor={ClassicEditor as any}
+          <CustomCKEditor
             onChange={(event, editor) => {
               const data = editor.data.get();
               updatePost("content", data);
@@ -242,6 +251,7 @@ export default function PostForm({
         <Button
           danger
           shape="circle"
+          onClick={handleDelete}
           icon={
             <Icon
               path={mdiTrashCan}
@@ -250,6 +260,19 @@ export default function PostForm({
           }
           size={"large"}
         />
+        {formType === "update" && (
+          <Button
+            shape="circle"
+            onClick={handlePreview}
+            icon={
+              <Icon
+                path={mdiEye}
+                size={1}
+              />
+            }
+            size={"large"}
+          />
+        )}
         <Button
           onClick={handleSave}
           type="primary"

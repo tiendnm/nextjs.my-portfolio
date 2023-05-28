@@ -1,6 +1,7 @@
 "use client";
 import Topbar from "@components/admin/Topbar";
 import { Spin } from "antd";
+import { usePathname, useSearchParams } from "next/navigation";
 import {
   createContext,
   Dispatch,
@@ -31,13 +32,17 @@ export const AdminContextProvider = (props: PropsWithChildren) => {
   const [goBack, setGoBack] = useState(false);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
-
+  const searchParams = useSearchParams();
   const value = {
     setGoBack,
     setGoHome,
     setTitle,
     setLoading,
   };
+  useEffect(() => {
+    searchParams;
+    setLoading(false);
+  }, [searchParams]);
   return (
     <AdminContext.Provider value={value}>
       <div className="relative h-full w-full overflow-auto bg-slate-300">
@@ -50,7 +55,7 @@ export const AdminContextProvider = (props: PropsWithChildren) => {
           tip="Đang tải ..."
           size="large"
           spinning={loading}>
-          <div className="mx-3 mt-12 flex flex-col items-center justify-between md:mx-auto md:max-w-lg">
+          <div className="mx-3 mt-12 flex flex-col items-center justify-between xl:mx-auto xl:max-w-4xl">
             {props.children}
           </div>
         </Spin>
@@ -69,6 +74,7 @@ export function useAdminContext({
   pageTitle: string;
 }) {
   const { setGoBack, setGoHome, setTitle, setLoading } = useContext(AdminContext); // first load is light
+
   useEffect(() => {
     setGoBack(canGoBack);
   }, [canGoBack, setGoBack]);

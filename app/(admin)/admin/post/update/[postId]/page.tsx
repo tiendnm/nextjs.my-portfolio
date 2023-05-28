@@ -1,21 +1,19 @@
-import { getPostByID } from "../../getPost";
-import PostForm from "../../postForm";
-import { Post } from "../../postModel";
+import { getPostByID, preload } from "../../_fetch/post.fetch";
+import PostForm from "../../_components/post.form";
+import PostNotfound from "../../_components/post.notfound";
+export const revalidate = 5;
 
 export default async function Page({ params }: { params: { postId: string } }) {
   const { postId } = params;
-  const data: Post = await getPostByID(postId);
+  preload(postId);
+  const data = await getPostByID(postId);
+  if (!data) {
+    return <PostNotfound />;
+  }
   return (
     <PostForm
       key={data._id}
-      title={data.title}
-      _id={data._id}
-      author={data.author}
-      content={data.content}
-      publish_date={data.publish_date}
-      sub_title={data.sub_title}
-      slug={data.slug}
-      thumbnail_link={data.thumbnail_link}
+      {...data}
     />
   );
 }

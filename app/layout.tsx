@@ -1,6 +1,7 @@
 import "./globals.css";
 import "sal.js/dist/sal.css";
 import { cabin } from "@configs/fonts";
+import Script from "next/script";
 
 export const metadata = {
   title: {
@@ -14,6 +15,7 @@ export const metadata = {
   creator: "Tiến Đỗ",
   publisher: "Tiến Đỗ",
 };
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
