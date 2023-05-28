@@ -34,7 +34,7 @@ export default function PostView(props: Post) {
 
   return (
     <>
-      <div className="mx-auto max-w-2xl p-4">
+      <div className="mx-auto w-full max-w-2xl p-4 ">
         <h1 className="mb-2 text-5xl font-bold">{title}</h1>
         <h2 className="mb-4 text-4xl text-gray-600">{sub_title}</h2>
         <div className="mb-4 flex items-center justify-between text-xl">
