@@ -6,10 +6,9 @@ import clsx from "clsx";
 import { parseStyleString } from "@utils/datatype";
 import { useCallback, useMemo } from "react";
 import { BLUR_URL } from "@variables";
-
+import SyntaxHighlighter from "react-syntax-highlighter";
+import * as theme from "react-syntax-highlighter/dist/esm/styles/hljs";
 export default function PostContentParser({ content }: { content?: string }) {
-  const useParse = true;
-
   const recursiveFindImage = useCallback((element: Element): Element | undefined => {
     const children = element?.children as Element[];
     if (children?.length > 0) {
@@ -56,6 +55,18 @@ export default function PostContentParser({ content }: { content?: string }) {
               style={parseStyleString(attribs.style)}
               className={clsx(["h-auto w-full", attribs.class])}
             />
+          );
+        }
+        if (name === "pre") {
+          return domToReact(children, options);
+        }
+        if (name === "code" && attribs.class?.startsWith("language")) {
+          return (
+            <SyntaxHighlighter
+              language={attribs.class.replace("language-", "")}
+              style={theme.dracula}>
+              {domToReact(children, options) as any}
+            </SyntaxHighlighter>
           );
         }
       },

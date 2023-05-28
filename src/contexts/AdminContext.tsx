@@ -45,7 +45,7 @@ export const AdminContextProvider = (props: PropsWithChildren) => {
   }, [searchParams]);
   return (
     <AdminContext.Provider value={value}>
-      <div className="relative h-full w-full overflow-auto bg-slate-300">
+      <div className="relative h-full w-full overflow-auto bg-teal-50">
         <Topbar
           home={goHome}
           back={goBack}>
