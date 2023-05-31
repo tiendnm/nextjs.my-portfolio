@@ -5,8 +5,10 @@ import { useSession } from "@services/auth";
 import { Button } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { useTransition } from "react";
+import { deletePost } from "../_fetch/post.fetch";
 export default function PostDelete({ id }: { id: string }) {
+  const [isPending, startTransition] = useTransition();
   const { status } = useSession({
     required: true,
   });
@@ -35,7 +37,23 @@ export default function PostDelete({ id }: { id: string }) {
         Bạn có chắc chắn muốn xoá bài viết này?
       </div>
       <div className="flex w-full justify-center gap-2 ">
-        <Button size={"middle"}>Xoá</Button>
+        <Button
+          onClick={() =>
+            startTransition(() => {
+              setLoading(true);
+              deletePost(id)
+                .then(() => {
+                  progressBar.start();
+                  navigate.push("admin/post");
+                })
+                .catch(() => {
+                  setLoading(false);
+                });
+            })
+          }
+          size={"middle"}>
+          Xoá
+        </Button>
         <Button
           type="primary"
           size={"middle"}>

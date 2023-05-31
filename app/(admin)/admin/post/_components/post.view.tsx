@@ -12,7 +12,7 @@ import { Post } from "../_model/post.model";
 import PostContentParser from "./post.content.parser";
 
 export default function PostView(props: Post) {
-  const { _id, sub_title, title, publish_date, content, author } = props;
+  const { _id, description, title, publish_date, content, author } = props;
   useAdminContext({
     canGoBack: true,
     canGoHome: true,
@@ -36,7 +36,7 @@ export default function PostView(props: Post) {
     <>
       <div className="mx-auto w-full max-w-2xl p-4 ">
         <h1 className="mb-2 text-5xl font-bold">{title}</h1>
-        <h2 className="mb-4 text-4xl text-gray-600">{sub_title}</h2>
+        <h2 className="mb-4 text-4xl text-gray-600">{description}</h2>
         <div className="mb-4 flex items-center justify-between text-xl">
           <p className="text-gray-700">Tác giả: {author}</p>
           <p className=" text-gray-600">

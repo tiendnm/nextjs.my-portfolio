@@ -1,7 +1,6 @@
 import { getPostByID, preload } from "../../_fetch/post.fetch";
 import PostForm from "../../_components/post.form";
 import PostNotfound from "../../_components/post.notfound";
-export const revalidate = 5;
 
 export default async function Page({ params }: { params: { postId: string } }) {
   const { postId } = params;

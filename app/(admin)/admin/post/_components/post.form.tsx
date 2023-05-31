@@ -3,7 +3,7 @@ import { Avatar, Button, DatePicker, Input, Spin, notification } from "antd";
 import { Post } from "../_model/post.model";
 import ClassicEditor from "ckeditor5-custom-build";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { useAdminContext } from "@contexts/AdminContext";
 import Image from "next/image";
 import { BLUR_URL } from "@variables";
@@ -23,7 +23,7 @@ export default function PostForm({
   author,
   content,
   publish_date,
-  sub_title,
+  description,
   slug,
   thumbnail_link,
 }: Partial<Post>) {
@@ -33,7 +33,6 @@ export default function PostForm({
     canGoHome: true,
     pageTitle: formType === "create" ? "THÊM BÀI VIẾT" : "CHỈNH SỬA BÀI VIẾT",
   });
-
   const router = useRouter();
   const progressBar = useProgressBar();
 
@@ -45,7 +44,7 @@ export default function PostForm({
     author,
     content,
     publish_date,
-    sub_title,
+    description,
     slug,
     thumbnail_link,
   });
@@ -57,11 +56,20 @@ export default function PostForm({
       author,
       content,
       publish_date,
-      sub_title,
+      description,
       slug,
       thumbnail_link,
     });
-  }, [_id, author, content, publish_date, slug, sub_title, thumbnail_link, title]);
+  }, [
+    _id,
+    author,
+    content,
+    publish_date,
+    slug,
+    description,
+    thumbnail_link,
+    title,
+  ]);
 
   const updatePost = useCallback(
     (key: keyof Post, value: Post[keyof Post]) => {
@@ -93,10 +101,10 @@ export default function PostForm({
       });
       return;
     }
-    if (!clonePost.sub_title) {
+    if (!clonePost.description) {
       notiApi.warning({
         message: `Cảnh báo`,
-        description: "Vui lòng nhập tiêu đề phụ bài viết",
+        description: "Vui lòng nhập diễn giải bài viết",
         placement: "bottom",
       });
       return;
@@ -162,6 +170,7 @@ export default function PostForm({
   const { status } = useSession({
     required: true,
   });
+
   if (status === "loading") {
     return <div className="text-green-500">Authorizing....</div>;
   }
@@ -203,13 +212,14 @@ export default function PostForm({
           />
         </div>
         <div className="w-full">
-          <label>Tiêu dề phụ:</label>
-          <Input
+          <label>Diễn giải:</label>
+          <Input.TextArea
+            rows={3}
             placeholder="Tiêu dề phụ"
-            value={post.sub_title}
+            value={post.description}
             onChange={(e) => {
               const data = e.target.value;
-              updatePost("sub_title", data);
+              updatePost("description", data);
             }}
           />
         </div>
@@ -239,9 +249,8 @@ export default function PostForm({
         <div className="w-full">
           <label>Nội dung:</label>
           <CustomCKEditor
-            onChange={(event, editor) => {
-              const data = editor.data.get();
-              updatePost("content", data);
+            onChange={(text: string | null | undefined) => {
+              updatePost("content", `${text}`);
             }}
             data={post.content}
           />

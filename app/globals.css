@@ -68,3 +68,7 @@ html .bg-gradient-transform {
 html.dark .bg-gradient-transform {
   background-position: 100%;
 }
+
+.flex-center {
+  @apply flex items-center justify-center;
+}

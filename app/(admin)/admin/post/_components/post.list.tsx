@@ -2,7 +2,12 @@
 
 import CustomLink from "@components/CustomLink";
 import useProgressBar from "@hooks/useProgressBar";
-import { mdiMagnify, mdiPencilOutline, mdiPlus, mdiTrashCanOutline } from "@mdi/js";
+import {
+  mdiMagnify,
+  mdiPencilOutline,
+  mdiPlus,
+  mdiTrashCanOutline,
+} from "@mdi/js";
 import Icon from "@mdi/react";
 import { BLUR_URL } from "@variables";
 import { Button, Card, Empty, Input, List, Skeleton } from "antd";
@@ -149,7 +154,9 @@ export default function PostList({
                     avatar={
                       <div className="relative h-14 w-14  rounded-md">
                         <Image
-                          src={item.thumbnail_link || "/undraw_upload_image.svg"}
+                          src={
+                            item.thumbnail_link || "/undraw_upload_image.svg"
+                          }
                           blurDataURL={BLUR_URL}
                           placeholder="blur"
                           quality={60}
@@ -170,10 +177,11 @@ export default function PostList({
                     }
                     description={
                       <p>
-                        {item.author} [{moment(item.publish_date).format("DD/MM/YYYY")}]
+                        {item.author} [
+                        {moment(item.publish_date).format("DD/MM/YYYY")}]
                       </p>
                     }></List.Item.Meta>
-                  {item.sub_title}
+                  {item.description}
                 </Skeleton>
               </List.Item>
             )}
