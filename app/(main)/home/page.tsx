@@ -25,11 +25,13 @@ export const metadata = {
 };
 export default function Home() {
   return (
-    <main className={clsx(["flex w-full flex-col items-center justify-center"])}>
-      <Avatar />
-      <Name />
-      <SocialButtons />
-      <DownLoadCVButton />
+    <main className={clsx(["inset-0 flex-col flex-center"])}>
+      <div className="flex-col flex-center">
+        <Avatar />
+        <Name />
+        <SocialButtons />
+        <DownLoadCVButton />
+      </div>
     </main>
   );
 }

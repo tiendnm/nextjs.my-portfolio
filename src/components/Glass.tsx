@@ -4,7 +4,12 @@ interface GlassProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function Glass({ className, children, ...props }: GlassProps) {
   return (
-    <div className={clsx([" lg:h-auto", "lg:pb-5", "flex items-stretch justify-center"])}>
+    <div
+      className={clsx([
+        " lg:h-auto",
+        "lg:pb-5",
+        "flex items-stretch justify-center",
+      ])}>
       <div
         className={clsx([
           "w-full lg:min-h-[71vh]",
@@ -17,7 +22,7 @@ export default function Glass({ className, children, ...props }: GlassProps) {
         ])}>
         <div
           className={clsx([
-            "flex min-h-[calc(100vh-2px)] items-stretch py-20 lg:min-h-min",
+            "inset-0 min-h-[calc(100vh-2px)] py-20 flex-center lg:min-h-full ",
           ])}>
           {children}
         </div>

@@ -17,22 +17,7 @@
   @apply text-white;
 }
 
-/* .nav-button.expanded {
-  background: transparent;
-  @apply pl-4;
-}
-.nav-button.expanded.selected {
-  background: transparent;
-  @apply text-[#b8c0ff];
-}
-.nav-button.expanded:hover {
-  background: transparent;
-  @apply text-[#b8c0ff];
-} */
-
 .footer {
-  width: inherit;
-  max-width: inherit;
   @apply fixed bottom-0 z-40  backdrop-blur-sm lg:hidden;
 }
 

@@ -15,12 +15,13 @@ export default function FooterNav() {
           styles.footer,
           "bg-white/40 dark:bg-black/40 dark:text-white",
           "transition-colors duration-500",
-          "py-2",
+          "w-full py-2",
         ])}>
         <nav className={styles["footer-nav"]}>
           {navigationMenu.map((tab, index) => {
             const isSelected =
-              segment === tab.value || (!segment && tab.value == navigationMenu[0].value);
+              segment === tab.value ||
+              (!segment && tab.value == navigationMenu[0].value);
             return (
               <CustomLink
                 className={clsx([
